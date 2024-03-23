@@ -5,9 +5,15 @@ class ColorManager {
   static Color black = const Color.fromRGBO(0, 0, 0, 1);
   static Color black2 = const Color.fromRGBO(0, 0, 0, 0.37);
   static Color black3 = const Color.fromRGBO(1, 1, 1, 1);
+  static Color black4 = const Color.fromRGBO(34, 33, 33, 1);
+  static Color white = const Color.fromRGBO(255, 255, 255, 1);
   static Color grey = const Color.fromRGBO(165, 165, 165, 1);
   static Color grey2 = const Color.fromRGBO(169, 169, 169, 1);
   static Color grey3 = const Color.fromRGBO(233, 231, 231, 1);
+  static Color grey4 = const Color.fromRGBO(166, 166, 166, 1);
+  static Color grey5 = const Color.fromRGBO(233, 232, 232, 0.57);
+  static Color grey6 = const Color.fromRGBO(217, 217, 217, 1);
+  static Color purple = const Color.fromRGBO(97, 98, 178, 1);
 
   //===============================================================
   // Background
@@ -32,15 +38,12 @@ class ColorManager {
   static Color greyIndicator2 = const Color.fromRGBO(98, 107, 120, 1);
   static Color greyIndicator3 = const Color.fromRGBO(149, 149, 149, 1);
   static Color disabledText = const Color(0xff8B8B8B);
-  static Color white = const Color.fromRGBO(255, 255, 255, 1);
+
   static Color white2 = const Color.fromRGBO(255, 255, 255, 0.24);
   static Color whiteGrey = const Color.fromRGBO(239, 239, 239, 1);
   static Color whiteGrey2 = const Color.fromRGBO(237, 237, 237, 1);
   static Color whiteGrey3 = const Color.fromRGBO(250, 250, 250, 1);
   static Color whiteGrey4 = const Color.fromRGBO(252, 252, 252, 1);
-  static Color grey4 = const Color.fromRGBO(121, 121, 122, 1);
-  static Color grey5 = const Color.fromRGBO(105, 105, 105, 1);
-  static Color grey6 = const Color.fromRGBO(31, 20, 26, 1);
   static Color grey7 = const Color.fromRGBO(51, 51, 51, 1);
   static Color grey8 = const Color.fromRGBO(222, 222, 222, 1);
   static Color grey9 = const Color.fromRGBO(62, 62, 62, 1);

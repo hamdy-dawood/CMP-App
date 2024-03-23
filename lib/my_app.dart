@@ -1,8 +1,8 @@
+import 'package:cmp_app/features/bottom_nav_bar/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/helpers/navigator.dart';
-import 'features/start/view.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      child: const StartView(),
+      child: const NavBarView(),
     );
   }
 }

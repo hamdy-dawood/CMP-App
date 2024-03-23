@@ -3,11 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SvgIcon extends StatelessWidget {
   const SvgIcon({
-    Key? key,
+    super.key,
     required this.icon,
     required this.color,
     this.height = 0,
-  }) : super(key: key);
+  });
 
   final String icon;
   final Color color;

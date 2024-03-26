@@ -55,15 +55,16 @@ class _TasksBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 20.h),
-              height: 150.h,
-              width: 0.8.sw,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r),
-                color: ColorManager.mainColor,
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.symmetric(vertical: 20.h),
+            //   height: 150.h,
+            //   width: 0.8.sw,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(12.r),
+            //     color: ColorManager.mainColor,
+            //   ),
+            // ),
+            SizedBox(height: 20.h),
             Container(
               height: 58.h,
               width: 0.7.sw,

@@ -1,6 +1,8 @@
+import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_elevated.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
+import 'package:cmp_app/features/bottom_nav_bar/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -37,7 +39,9 @@ class PercentContainer extends StatelessWidget {
                 SizedBox(height: 10.h),
                 CustomElevated(
                   press: () {
-                    // navBarCubit.navigateToNavBarView(1);
+                    MagicRouter.navigateTo(
+                      page: const NavBarView(initialIndex: 1),
+                    );
                   },
                   text: 'View task',
                   btnColor: ColorManager.mainColor,

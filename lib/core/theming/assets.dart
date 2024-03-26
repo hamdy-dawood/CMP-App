@@ -17,6 +17,7 @@ class AssetsStrings {
   static const String laptop = "${baseImages}laptop.png";
   static const String money = "${baseImages}money.png";
   static const String paper = "${baseImages}paper.png";
+  static const String homeImage = "${baseImages}home_image.png";
 
   // Icons
   static const String google = "${baseIcons}google.svg";

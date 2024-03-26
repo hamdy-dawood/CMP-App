@@ -100,7 +100,7 @@ class TaskItemTasks extends StatelessWidget {
                     LinearPercentIndicator(
                       animation: true,
                       lineHeight: 15,
-                      animationDuration: 3000,
+                      animationDuration: 1000,
                       percent: percent,
                       center: Text(percentText),
                       barRadius: Radius.circular(20.r),

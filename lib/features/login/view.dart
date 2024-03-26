@@ -47,7 +47,7 @@ class LoginView extends StatelessWidget {
                   child: CustomText(
                     text: "FORGOT PASSWORD ?",
                     color: ColorManager.mainColor,
-                    fontSize: 18.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

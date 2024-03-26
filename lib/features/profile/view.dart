@@ -1,7 +1,9 @@
+import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/app_bar.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
+import 'package:cmp_app/features/covenants/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,7 +16,12 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
-      appBar: const CustomAppBar(text: "Profile"),
+      appBar: CustomAppBar(
+        text: "Profile",
+        backgroundColor: ColorManager.mainColor,
+        leadingColor: ColorManager.white,
+        textColor: ColorManager.white,
+      ),
       body: SingleChildScrollView(
         child: SizedBox(
           width: 1.sw,
@@ -69,10 +76,15 @@ class ProfileView extends StatelessWidget {
                 title: "IP",
                 subTitle: "18526346286111",
               ),
-              const ProfileItem(
-                icon: AssetsStrings.covenants,
-                title: "Covenants",
-                subTitle: "",
+              GestureDetector(
+                onTap: () {
+                  MagicRouter.navigateTo(page: const CovenantsView());
+                },
+                child: const ProfileItem(
+                  icon: AssetsStrings.covenants,
+                  title: "Covenants",
+                  subTitle: "",
+                ),
               ),
             ],
           ),

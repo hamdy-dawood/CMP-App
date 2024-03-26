@@ -1,13 +1,21 @@
 import 'package:cmp_app/core/helpers/navigator.dart';
-import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String text;
+  final Color backgroundColor, leadingColor, textColor;
+  final bool withLeading;
 
-  const CustomAppBar({super.key, required this.text});
+  const CustomAppBar({
+    super.key,
+    required this.text,
+    required this.backgroundColor,
+    required this.leadingColor,
+    required this.textColor,
+    this.withLeading = true,
+  });
 
   @override
   Size get preferredSize => Size.fromHeight(50.h);
@@ -16,20 +24,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: ColorManager.mainColor,
-      leading: IconButton(
-        onPressed: () {
-          MagicRouter.navigatePop();
-        },
-        icon: Icon(
-          Icons.arrow_back_ios,
-          color: ColorManager.white,
-          size: 22.sp,
-        ),
-      ),
+      backgroundColor: backgroundColor,
+      leading: withLeading
+          ? IconButton(
+              onPressed: () {
+                MagicRouter.navigatePop();
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: leadingColor,
+                size: 22.sp,
+              ),
+            )
+          : const SizedBox.shrink(),
       title: CustomText(
         text: text,
-        color: ColorManager.white,
+        color: textColor,
         fontSize: 25.sp,
         fontWeight: FontWeight.w700,
       ),

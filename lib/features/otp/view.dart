@@ -63,12 +63,12 @@ class OtpView extends StatelessWidget {
                         if (otpController.text.length != 4) {
                           showMessage(
                             message: "Please Enter the code !",
-                            color: ColorManager.redPrimary,
+                            color: ColorManager.red,
                           );
                         } else if (otpController.text != "0000") {
                           showMessage(
                             message: "Wrong OTP Code !",
-                            color: ColorManager.redPrimary,
+                            color: ColorManager.red,
                           );
                         } else {
                           MagicRouter.navigateTo(

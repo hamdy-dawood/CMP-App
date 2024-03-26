@@ -22,7 +22,7 @@ class BottomBarItem extends StatelessWidget {
         icon,
         height: 30,
         colorFilter: ColorFilter.mode(
-          isSelected ? ColorManager.mainColor : ColorManager.grey13,
+          isSelected ? ColorManager.mainColor : ColorManager.grey,
           BlendMode.srcIn,
         ),
       ),

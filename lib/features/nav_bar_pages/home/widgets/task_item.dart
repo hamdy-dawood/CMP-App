@@ -17,9 +17,8 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10.h, right: 15.w, left: 15.w),
+      margin: EdgeInsets.only(bottom: 10.h),
       padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
-      width: 0.9.sw,
       decoration: BoxDecoration(
         border: Border.all(color: ColorManager.black, width: 0.5),
         borderRadius: BorderRadius.circular(10.r),

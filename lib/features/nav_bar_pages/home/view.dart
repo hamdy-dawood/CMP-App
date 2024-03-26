@@ -63,15 +63,24 @@ class HomeView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const TaskItem(
-                      image: AssetsStrings.task1Image,
-                      title: "Education app design",
-                      date: "18 Aug 2024",
-                    ),
-                    const TaskItem(
-                      image: AssetsStrings.task2Image,
-                      title: "Dashboard redesign",
-                      date: "18 Aug 2024",
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      child: const SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            TaskItem(
+                              image: AssetsStrings.task1Image,
+                              title: "Education app design",
+                              date: "18 Aug 2024",
+                            ),
+                            TaskItem(
+                              image: AssetsStrings.task2Image,
+                              title: "Dashboard redesign",
+                              date: "18 Aug 2024",
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),

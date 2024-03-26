@@ -35,7 +35,7 @@ class PinPutWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18.r),
         color: hasError
-            ? ColorManager.redPrimary
+            ? ColorManager.red
             : focused
                 ? ColorManager.mainColor
                 : ColorManager.grey3,

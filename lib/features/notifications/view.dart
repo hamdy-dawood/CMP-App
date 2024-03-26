@@ -1,6 +1,6 @@
+import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
-import 'package:cmp_app/core/widgets/app_bar.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,21 +14,48 @@ class NotificationsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
-      appBar: const CustomAppBar(text: "Notification"),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(180.h),
+        child: Stack(
+          children: [
+            Container(
+              height: 180.h,
+              padding: EdgeInsets.symmetric(horizontal: 0.02.sw),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(24.r),
+                ),
+                color: ColorManager.mainColor,
+              ),
+              child: AppBar(
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                title: CustomText(
+                  text: "Notification",
+                  color: ColorManager.white,
+                  fontSize: 25.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+                centerTitle: true,
+                leading: IconButton(
+                  onPressed: () {
+                    MagicRouter.navigatePop();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: ColorManager.white,
+                    size: 22.sp,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: SizedBox(
         width: 1.sw,
         child: Column(
           children: [
-            Container(
-              height: 100.h,
-              width: 1.sw,
-              decoration: BoxDecoration(
-                color: ColorManager.mainColor,
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(20.r),
-                ),
-              ),
-            ),
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
               child: Row(

@@ -1,5 +1,4 @@
 import 'package:cmp_app/core/theming/colors.dart';
-import 'package:cmp_app/core/widgets/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -56,19 +55,18 @@ class SearchTextField extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             fillColor: Theme.of(context).cardColor,
-            hintText: "search_here",
+            hintText: "Search",
             hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: ColorManager.greyIndicator,
-                  fontSize: 14.sp,
+                  color: ColorManager.grey,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
                 ),
             contentPadding: EdgeInsets.only(right: 5.w, left: 5.w),
             prefixIcon: Padding(
               padding: EdgeInsets.all(0.015.sh),
-              child: SvgIcon(
-                icon: "AssetsStrings.add",
-                height: 0.029.sh,
-                color: ColorManager.greyIndicator,
+              child: Icon(
+                Icons.search,
+                color: ColorManager.black,
               ),
             ),
             enabledBorder: OutlineInputBorder(

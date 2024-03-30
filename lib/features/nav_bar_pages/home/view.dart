@@ -5,6 +5,7 @@ import 'package:cmp_app/features/nav_bar_pages/home/widgets/percent_container.da
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'widgets/fl_chart.dart';
 import 'widgets/main_app_bar_view.dart';
 import 'widgets/target_container.dart';
 import 'widgets/task_item.dart';
@@ -36,13 +37,7 @@ class HomeView extends StatelessWidget {
                   child: Column(
                     children: [
                       const TargetContainer(),
-                      Padding(
-                        padding: EdgeInsets.all(20.h),
-                        child: Image.asset(
-                          AssetsStrings.homeImage,
-                          height: 200.h,
-                        ),
-                      ),
+                      const FlCarts(),
                       const PercentContainer(),
                       Padding(
                         padding:

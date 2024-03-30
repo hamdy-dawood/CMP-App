@@ -4,11 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatBottomSheet extends StatelessWidget {
   const ChatBottomSheet({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController msgController = TextEditingController();
     return Container(
       color: ColorManager.white,
       child: Padding(
@@ -18,13 +19,17 @@ class ChatBottomSheet extends StatelessWidget {
             Flexible(
               child: SizedBox(
                 child: TextFormField(
-                  textInputAction: TextInputAction.newline,
+                  controller: msgController,
+                  textInputAction: TextInputAction.done,
                   maxLines: null,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: ColorManager.black,
+                        color: ColorManager.white,
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
                       ),
+                  onFieldSubmitted: (value) {
+                    msgController.text = "";
+                  },
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: ColorManager.mainColor,

@@ -59,69 +59,26 @@ class ChatDetails extends StatelessWidget {
               ],
             ),
           ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned(
-                top: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(16.r),
-                    ),
-                    color: ColorManager.white,
-                    border: Border.all(color: ColorManager.grey3),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 5.h,
-                    ),
-                    child: CustomText(
-                      text: name,
-                      color: ColorManager.mainColor,
-                      fontSize: 22.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(16.r),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.w,
-                  vertical: 10.h,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleAvatar(
-                      radius: 22.r,
-                      backgroundColor: ColorManager.mainColor,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.call,
-                          color: ColorManager.white,
-                          size: 25.sp,
-                        ),
-                      ),
-                    ),
-                    CircleAvatar(
-                      radius: 22.r,
-                      backgroundColor: ColorManager.mainColor,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.videocam,
-                          color: ColorManager.white,
-                          size: 25.sp,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              color: ColorManager.white,
+              border: Border.all(color: ColorManager.grey3),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+                vertical: 5.h,
               ),
-            ],
+              child: CustomText(
+                text: name,
+                color: ColorManager.mainColor,
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Expanded(
             child: ListView(
@@ -149,7 +106,7 @@ class ChatDetails extends StatelessWidget {
           ),
         ],
       ),
-      bottomSheet: ChatBottomSheet(),
+      bottomSheet: const ChatBottomSheet(),
     );
   }
 }

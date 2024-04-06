@@ -20,89 +20,70 @@ class ChatDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
-      body: Column(
-        children: [
-          Container(
-            height: 180.h,
-            padding: EdgeInsets.only(
-              top: 50.h,
-              left: 0.02.sw,
-              right: 0.02.sw,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(24.r),
-              ),
-              color: ColorManager.mainColor,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    MagicRouter.navigatePop();
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: ColorManager.white,
-                    size: 22.sp,
-                  ),
-                ),
-                SizedBox(width: 80.w),
-                CircleAvatar(
-                  radius: 50.r,
-                  child: ClipOval(
-                    child: Image.asset(image),
-                  ),
-                ),
-              ],
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: ColorManager.white,
+        toolbarHeight: 100.h,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            color: ColorManager.mainColor,
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(20.r),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(16.r),
-              ),
-              color: ColorManager.white,
-              border: Border.all(color: ColorManager.grey3),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10.w,
-                vertical: 5.h,
-              ),
-              child: CustomText(
+        ),
+        leading: IconButton(
+          onPressed: () {
+            MagicRouter.navigatePop();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: ColorManager.white,
+            size: 22.sp,
+          ),
+        ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomText(
                 text: name,
-                color: ColorManager.mainColor,
+                color: ColorManager.white,
                 fontSize: 22.sp,
                 fontWeight: FontWeight.w700,
               ),
-            ),
+              SizedBox(width: 10.w),
+              CircleAvatar(
+                radius: 30.r,
+                child: ClipOval(
+                  child: Image.asset(image),
+                ),
+              ),
+              SizedBox(width: 10.w),
+            ],
+          )
+        ],
+      ),
+      body: ListView(
+        children: [
+          SizedBox(height: 30.h),
+          const MainChatBubble(
+            isFriend: true,
+            message: "Hi Nada",
+            time: "2:45 am",
           ),
-          Expanded(
-            child: ListView(
-              children: const [
-                MainChatBubble(
-                  isFriend: true,
-                  message: "Hi Nada",
-                  time: "2:45 am",
-                ),
-                MainChatBubble(
-                  message: "Hi",
-                  time: "2:45 am",
-                ),
-                MainChatBubble(
-                  isFriend: true,
-                  message: "What's up with work? Are you done?",
-                  time: "2:45 am",
-                ),
-                MainChatBubble(
-                  message: "No, it's not over yet. You have to come.",
-                  time: "2:45 am",
-                ),
-              ],
-            ),
+          const MainChatBubble(
+            message: "Hi",
+            time: "2:45 am",
+          ),
+          const MainChatBubble(
+            isFriend: true,
+            message: "What's up with work? Are you done?",
+            time: "2:45 am",
+          ),
+          const MainChatBubble(
+            message: "No, it's not over yet. You have to come.",
+            time: "2:45 am",
           ),
         ],
       ),

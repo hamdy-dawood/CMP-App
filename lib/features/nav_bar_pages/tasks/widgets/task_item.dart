@@ -102,7 +102,7 @@ class TaskItemTasks extends StatelessWidget {
                       lineHeight: 15,
                       animationDuration: 1000,
                       percent: percent,
-                      center: Text(percentText),
+                      center: FittedBox(child: Text(percentText)),
                       barRadius: Radius.circular(20.r),
                       progressColor: mainColor,
                       backgroundColor: ColorManager.white,

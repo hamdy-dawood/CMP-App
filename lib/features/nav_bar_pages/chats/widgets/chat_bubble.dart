@@ -37,7 +37,7 @@ class MainChatBubble extends StatelessWidget {
                   bottomRight: Radius.circular(8.r),
                   bottomLeft: Radius.circular(8.r),
                 ),
-          color: isFriend ? ColorManager.grey6 : ColorManager.mainColor,
+          color: isFriend ? ColorManager.grey7 : ColorManager.mainColor,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,

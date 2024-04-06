@@ -62,11 +62,13 @@ class ChatBottomSheet extends StatelessWidget {
               radius: 22.r,
               backgroundColor: ColorManager.mainColor,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  msgController.text = "";
+                },
                 icon: Icon(
-                  Icons.mic,
+                  Icons.send_rounded,
                   color: ColorManager.white,
-                  size: 25.sp,
+                  size: 20.sp,
                 ),
               ),
             ),

@@ -33,59 +33,66 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                 ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const TargetContainer(),
-                      const FlCarts(),
-                      const PercentContainer(),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
+                  children: [
+                    const TargetContainer(),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
                           children: [
-                            CustomText(
-                              text: "Your Task",
-                              color: ColorManager.mainColor,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w700,
+                            const FlCarts(),
+                            const PercentContainer(),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 20.w, right: 20.w, top: 10.h),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomText(
+                                    text: "Your Task",
+                                    color: ColorManager.mainColor,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      // navigateTo(page: const RecommendView());
+                                    },
+                                    child: CustomText(
+                                      text: "See All",
+                                      color: ColorManager.grey4,
+                                      fontSize: 11.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                // navigateTo(page: const RecommendView());
-                              },
-                              child: CustomText(
-                                text: "See All",
-                                color: ColorManager.grey4,
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.w700,
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.w),
+                              child: const SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    TaskItem(
+                                      image: AssetsStrings.task1Image,
+                                      title: "Education app design",
+                                      date: "18 Aug 2024",
+                                    ),
+                                    TaskItem(
+                                      image: AssetsStrings.task2Image,
+                                      title: "Dashboard redesign",
+                                      date: "18 Aug 2024",
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.w),
-                        child: const SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              TaskItem(
-                                image: AssetsStrings.task1Image,
-                                title: "Education app design",
-                                date: "18 Aug 2024",
-                              ),
-                              TaskItem(
-                                image: AssetsStrings.task2Image,
-                                title: "Dashboard redesign",
-                                date: "18 Aug 2024",
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),

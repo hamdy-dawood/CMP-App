@@ -1,10 +1,14 @@
+import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/app_bar.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:cmp_app/features/nav_bar_pages/home/widgets/task_item.dart';
+import 'package:cmp_app/features/task_sent/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'widgets/pie_chart.dart';
 
 class TaskDetails extends StatelessWidget {
   const TaskDetails({super.key});
@@ -30,6 +34,8 @@ class TaskDetails extends StatelessWidget {
               fontSize: 24.sp,
               fontWeight: FontWeight.w400,
             ),
+            SizedBox(height: 10.h),
+            const PieChartWidget(),
             SizedBox(height: 20.h),
             CustomText(
               text: "Description",
@@ -53,15 +59,25 @@ class TaskDetails extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
             SizedBox(height: 10.h),
-            const TaskItem(
-              image: AssetsStrings.task1Image,
-              title: "Education app design",
-              date: "18 Aug 2024",
+            GestureDetector(
+              onTap: () {
+                MagicRouter.navigateTo(page: const TaskSentView());
+              },
+              child: const TaskItem(
+                image: AssetsStrings.task1Image,
+                title: "Education app design",
+                date: "18 Aug 2024",
+              ),
             ),
-            const TaskItem(
-              image: AssetsStrings.task2Image,
-              title: "Dashboard redesign",
-              date: "18 Aug 2024",
+            GestureDetector(
+              onTap: () {
+                MagicRouter.navigateTo(page: const TaskSentView());
+              },
+              child: const TaskItem(
+                image: AssetsStrings.task2Image,
+                title: "Dashboard redesign",
+                date: "18 Aug 2024",
+              ),
             )
           ],
         ),

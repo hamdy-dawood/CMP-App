@@ -6,6 +6,7 @@ class ColorManager {
   static Color black2 = const Color.fromRGBO(0, 0, 0, 0.37);
   static Color black3 = const Color.fromRGBO(1, 1, 1, 1);
   static Color black4 = const Color.fromRGBO(34, 33, 33, 1);
+  static Color black5 = const Color.fromRGBO(0, 0, 0, 0.71);
   static Color white = const Color.fromRGBO(255, 255, 255, 1);
   static Color grey = const Color.fromRGBO(165, 165, 165, 1);
   static Color grey2 = const Color.fromRGBO(169, 169, 169, 1);

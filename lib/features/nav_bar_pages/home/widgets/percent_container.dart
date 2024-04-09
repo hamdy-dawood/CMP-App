@@ -31,7 +31,7 @@ class PercentContainer extends StatelessWidget {
                 CustomText(
                   text: "Your daily task\nalmost done",
                   color: ColorManager.white,
-                  fontSize: 20.sp,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w400,
                   maxLines: 5,
                   textAlign: TextAlign.center,

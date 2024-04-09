@@ -39,6 +39,7 @@ class ChatsView extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
                 centerTitle: true,
+                leading: const SizedBox.shrink(),
               ),
             ),
             Positioned(

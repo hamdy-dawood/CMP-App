@@ -46,11 +46,23 @@ class ChatDetails extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomText(
-                text: name,
-                color: ColorManager.white,
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w700,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomText(
+                    text: name,
+                    color: ColorManager.white,
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  CustomText(
+                    text: "typing...",
+                    color: ColorManager.white,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ],
               ),
               SizedBox(width: 10.w),
               CircleAvatar(

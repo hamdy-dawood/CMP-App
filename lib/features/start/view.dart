@@ -30,7 +30,7 @@ class StartView extends StatelessWidget {
             CustomText(
               text: "Are you ready to start \nyour business journey?",
               color: ColorManager.black,
-              fontSize: 24.sp,
+              fontSize: 22.sp,
               fontWeight: FontWeight.w700,
               maxLines: 4,
             ),

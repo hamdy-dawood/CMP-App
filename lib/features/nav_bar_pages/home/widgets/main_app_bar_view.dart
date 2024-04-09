@@ -34,7 +34,7 @@ class MainAppBarView extends StatelessWidget {
                       child: CustomText(
                         text: "Abdallah !",
                         color: ColorManager.white,
-                        fontSize: 32.sp,
+                        fontSize: 24.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -90,13 +90,13 @@ class MainAppBarView extends StatelessWidget {
                       CustomText(
                         text: "8 180.08",
                         color: ColorManager.white,
-                        fontSize: 36.sp,
+                        fontSize: 28.sp,
                         fontWeight: FontWeight.w700,
                       ),
                       SizedBox(width: 8.w),
                       CustomText(
                         text: "Target",
-                        color: ColorManager.grey4,
+                        color: ColorManager.white,
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
                       ),

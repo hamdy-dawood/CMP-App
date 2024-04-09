@@ -32,7 +32,7 @@ class FlCarts extends StatelessWidget {
                   FlSpot(5, 14),
                 ],
                 colors: [ColorManager.mainColor],
-                barWidth: 3,
+                barWidth: 2,
               ),
             ],
             titlesData: FlTitlesData(
@@ -64,7 +64,7 @@ class FlCarts extends StatelessWidget {
               ),
               leftTitles: SideTitles(
                 showTitles: true,
-                reservedSize: 5,
+                reservedSize: 8,
                 interval: 5,
               ),
             ),

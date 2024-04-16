@@ -18,9 +18,9 @@ class PieChartWidget extends StatelessWidget {
       dataMap: dataMap,
       chartRadius: 0.4.sw,
       colorList: const [
+        Color.fromRGBO(52, 173, 190, 1),
         Color.fromRGBO(234, 127, 2, 1),
         Color.fromRGBO(97, 98, 178, 1),
-        Color.fromRGBO(52, 173, 190, 1),
       ],
       legendOptions: LegendOptions(
         legendPosition: LegendPosition.right,
@@ -30,9 +30,12 @@ class PieChartWidget extends StatelessWidget {
           fontWeight: FontWeight.w400,
         ),
       ),
-      chartValuesOptions: const ChartValuesOptions(
-        showChartValuesInPercentage: true,
-      ),
+      chartValuesOptions: ChartValuesOptions(
+          showChartValuesInPercentage: true,
+          chartValueBackgroundColor: Colors.transparent,
+          chartValueStyle: TextStyle(
+            color: ColorManager.white,
+          )),
     );
   }
 }

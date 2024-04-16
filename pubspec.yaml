@@ -60,8 +60,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/logo.jpg"
-  image_path_ios: "assets/images/logo.jpg"
+  image_path: "assets/images/cmp_logo.jpg"
+  image_path_ios: "assets/images/cmp_logo.jpg"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

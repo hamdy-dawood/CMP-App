@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/helpers/navigator.dart';
+import 'features/nav_bar_pages/chat/cubit.dart';
 import 'features/splash/view.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,11 +18,14 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
-          child: MaterialApp(
-            title: "CMP App",
-            debugShowCheckedModeBanner: false,
-            navigatorKey: navigatorKey,
-            home: child,
+          child: BlocProvider(
+            create: (context) => ChatCubit(),
+            child: MaterialApp(
+              title: "CMP App",
+              debugShowCheckedModeBanner: false,
+              navigatorKey: navigatorKey,
+              home: child,
+            ),
           ),
         );
       },

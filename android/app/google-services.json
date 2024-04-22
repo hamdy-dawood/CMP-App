@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "18371111312",
+    "project_id": "cmp-app-44c4e",
+    "storage_bucket": "cmp-app-44c4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18371111312:android:fab6a239a3cd148ad8eb15",
+        "android_client_info": {
+          "package_name": "com.abdallah.cmp_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsR3f61IVxc01icirGmpLPXEfzrzmVYmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

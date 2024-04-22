@@ -45,6 +45,13 @@ dependencies:
   percent_indicator: ^4.2.3
   fl_chart: ^0.35.0
   pie_chart: ^5.4.0
+  firebase_auth: ^4.2.6
+  firebase_core: ^2.5.0
+  modal_progress_hud_nsn: ^0.3.0
+  cloud_firestore: ^4.3.2
+  firebase_core_platform_interface: ^4.5.3
+  shared_preferences: ^2.0.15
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

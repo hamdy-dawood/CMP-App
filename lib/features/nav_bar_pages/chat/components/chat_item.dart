@@ -1,7 +1,7 @@
 import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
-import 'package:cmp_app/features/nav_bar_pages/chats/chat_details.dart';
+import 'package:cmp_app/features/nav_bar_pages/chat/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,6 +12,7 @@ class ChatItem extends StatelessWidget {
     required this.name,
     required this.body,
   });
+
   final String image, name, body;
 
   @override
@@ -19,7 +20,7 @@ class ChatItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         MagicRouter.navigateTo(
-          page: ChatDetails(
+          page: ChatPage(
             image: image,
             name: name,
           ),

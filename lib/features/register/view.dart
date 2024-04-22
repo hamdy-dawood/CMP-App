@@ -4,7 +4,9 @@ import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_elevated.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:cmp_app/core/widgets/custom_text_form_field.dart';
-import 'package:cmp_app/features/bottom_nav_bar/view.dart';
+import 'package:cmp_app/core/widgets/snack_bar.dart';
+import 'package:cmp_app/features/login/view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -93,18 +95,55 @@ class _RegisterBody extends StatelessWidget {
                   );
                 },
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0.18.sw),
-                child: CustomElevated(
-                  text: "Sign Up",
-                  press: () {
-                    if (cubit.formKey.currentState!.validate() &&
-                        cubit.isChecked) {
-                      MagicRouter.navigateTo(page: const NavBarView());
-                    }
-                  },
-                  btnColor: ColorManager.mainColor,
-                ),
+              BlocConsumer<RegisterCubit, RegisterStates>(
+                listener: (context, state) {
+                  if (state is RegisterFailureState) {
+                    showMessage(
+                      message: state.stateMsg,
+                      color: ColorManager.red,
+                    );
+                  } else if (state is RegisterSuccessState) {
+                    final auth = FirebaseAuth.instance;
+                    late User user;
+                    user = auth.currentUser!;
+
+                    showMessage(
+                      message: "Register success Please Login After Verify",
+                      color: ColorManager.greyIndicator,
+                    );
+                    MagicRouter.navigateTo(
+                      page: const LoginView(),
+                      withHistory: false,
+                    );
+
+                    user.sendEmailVerification();
+                  }
+                },
+                builder: (context, state) {
+                  if (state is RegisterLoadingState) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.mainColor,
+                      ),
+                    );
+                  }
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 0.18.sw),
+                    child: CustomElevated(
+                      text: "Sign Up",
+                      press: () {
+                        if (cubit.formKey.currentState!.validate() &&
+                            cubit.isChecked) {
+                          cubit.registerUser(
+                            email: cubit.emailController.text,
+                            password: cubit.passwordController.text,
+                          );
+                        }
+                      },
+                      btnColor: ColorManager.mainColor,
+                    ),
+                  );
+                },
               ),
               SizedBox(height: 50.h),
             ],

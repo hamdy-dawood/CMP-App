@@ -1,5 +1,5 @@
 import 'package:cmp_app/core/theming/colors.dart';
-import 'package:cmp_app/features/nav_bar_pages/chats/view.dart';
+import 'package:cmp_app/features/nav_bar_pages/chat/main_view.dart';
 import 'package:cmp_app/features/nav_bar_pages/home/view.dart';
 import 'package:cmp_app/features/nav_bar_pages/tasks/view.dart';
 import 'package:flutter/material.dart';

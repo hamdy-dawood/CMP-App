@@ -1,0 +1,21 @@
+import 'constants.dart';
+
+class Message {
+  final String id;
+  final String message;
+  final String time;
+
+  Message(
+    this.id,
+    this.message,
+    this.time,
+  );
+
+  factory Message.fromJson(jsonData) {
+    return Message(
+      jsonData['id'],
+      jsonData[kMessage],
+      jsonData['createdAt'],
+    );
+  }
+}

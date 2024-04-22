@@ -1,5 +1,7 @@
+import 'package:cmp_app/core/helpers/cache_helper.dart';
 import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/colors.dart';
+import 'package:cmp_app/features/bottom_nav_bar/view.dart';
 import 'package:cmp_app/features/start/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +25,9 @@ class _SplashViewState extends State<SplashView> {
       const Duration(seconds: 5),
       () {
         MagicRouter.navigateTo(
-          page: const StartView(),
+          page: CacheHelper.getName().isEmpty
+              ? const StartView()
+              : const NavBarView(),
           withHistory: false,
         );
       },

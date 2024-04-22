@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,6 +17,22 @@ class RegisterCubit extends Cubit<RegisterStates> {
       TextEditingController();
 
   bool isChecked = false;
+
+  Future<void> registerUser({
+    required String email,
+    required String password,
+  }) async {
+    emit(RegisterLoadingState());
+    try {
+      UserCredential user = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      emit(RegisterSuccessState());
+    } on FirebaseAuthException catch (ex) {
+      emit(RegisterFailureState(stateMsg: ex.code.toString()));
+    } catch (e) {
+      emit(RegisterFailureState(stateMsg: e.toString()));
+    }
+  }
 
   rememberCheckBox() {
     isChecked = !isChecked;

@@ -5,7 +5,7 @@ import 'package:cmp_app/core/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'widgets/chat_item.dart';
+import 'components/chat_item.dart';
 
 class ChatsView extends StatelessWidget {
   const ChatsView({super.key});
@@ -62,11 +62,6 @@ class ChatsView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: ListView(
           children: const [
-            ChatItem(
-              image: AssetsStrings.nada,
-              name: "Nada Nour",
-              body: "I'm busy today.",
-            ),
             ChatItem(
               image: AssetsStrings.abdallah,
               name: "Abdallah Dawoood",

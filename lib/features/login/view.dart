@@ -1,29 +1,44 @@
+import 'package:cmp_app/core/helpers/cache_helper.dart';
 import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_elevated.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:cmp_app/core/widgets/custom_text_form_field.dart';
+import 'package:cmp_app/core/widgets/snack_bar.dart';
 import 'package:cmp_app/features/bottom_nav_bar/view.dart';
 import 'package:cmp_app/features/forgot_password/view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'cubit.dart';
+
 class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+  const LoginView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
+    return BlocProvider(
+      create: (context) => LoginCubit(),
+      child: const _LoginBody(),
+    );
+  }
+}
+
+class _LoginBody extends StatelessWidget {
+  const _LoginBody();
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<LoginCubit>(context);
 
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Form(
-          key: formKey,
+          key: cubit.formKey,
           autovalidateMode: AutovalidateMode.disabled,
           child: ListView(
             children: [
@@ -32,11 +47,11 @@ class LoginView extends StatelessWidget {
                 height: 350.h,
               ),
               _EmailTextField(
-                emailController: emailController,
+                emailController: cubit.emailController,
               ),
               SizedBox(height: 12.h),
               _PasswordTextField(
-                passwordController: passwordController,
+                passwordController: cubit.passwordController,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.h, bottom: 16.h),
@@ -52,14 +67,42 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
               ),
-              CustomElevated(
-                text: "Sign In",
-                press: () {
-                  if (formKey.currentState!.validate()) {
-                    MagicRouter.navigateTo(page: const NavBarView());
+              BlocConsumer<LoginCubit, LoginState>(
+                listener: (context, state) {
+                  if (state is LoginFailureState) {
+                    showMessage(
+                      message: state.stateMsg,
+                      color: ColorManager.red,
+                    );
+                  } else if (state is LoginSuccessState) {
+                    CacheHelper.saveName(cubit.emailController.text);
+                    MagicRouter.navigateTo(
+                      page: const NavBarView(),
+                      withHistory: false,
+                    );
                   }
                 },
-                btnColor: ColorManager.mainColor,
+                builder: (context, state) {
+                  if (state is LoginLoadingState) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.mainColor,
+                      ),
+                    );
+                  }
+                  return CustomElevated(
+                    text: "Sign In",
+                    press: () {
+                      if (cubit.formKey.currentState!.validate()) {
+                        cubit.loginUser(
+                          email: cubit.emailController.text,
+                          password: cubit.passwordController.text,
+                        );
+                      }
+                    },
+                    btnColor: ColorManager.mainColor,
+                  );
+                },
               ),
             ],
           ),

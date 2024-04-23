@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import 'components/constants.dart';
 import 'components/message_model.dart';
@@ -20,7 +19,7 @@ class ChatCubit extends Cubit<ChatState> {
       messages.add(
         {
           kMessage: message,
-          kCreatedAt: DateFormat('HH:mm').format(DateTime.now()),
+          kCreatedAt: DateTime.now(),
           'id': email,
         },
       );

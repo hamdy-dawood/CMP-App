@@ -4,6 +4,7 @@ class AssetsStrings {
 
   // Images
   static const String abdallah = "${baseImages}abdallah.jpg";
+  static const String user = "${baseImages}user.png";
   static const String nada = "${baseImages}nada.png";
   static const String startImage = "${baseImages}start_image.png";
   static const String authImage = "${baseImages}auth_image.png";

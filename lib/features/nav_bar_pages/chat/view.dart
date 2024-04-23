@@ -23,7 +23,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<ChatCubit>(context).getMessage();
-    String email = CacheHelper.getName();
+    String email = CacheHelper.getEmail();
 
     return BlocConsumer<ChatCubit, ChatState>(
       listener: (context, state) {
@@ -63,23 +63,11 @@ class ChatPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomText(
-                        text: name,
-                        color: ColorManager.white,
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      CustomText(
-                        text: "typing...",
-                        color: ColorManager.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ],
+                  CustomText(
+                    text: name,
+                    color: ColorManager.white,
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.w700,
                   ),
                   SizedBox(width: 10.w),
                   CircleAvatar(
@@ -104,8 +92,6 @@ class ChatPage extends StatelessWidget {
                       return MainChatBubble(
                         isFriend: messagesList[index].id != email,
                         message: messagesList[index].message,
-                        time: messagesList[index].time,
-                        // icon: isSent ? Icons.done : Icons.error,
                       );
                     }),
               ),

@@ -1,3 +1,4 @@
+import 'package:cmp_app/core/helpers/cache_helper.dart';
 import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
@@ -37,20 +38,20 @@ class ProfileView extends StatelessWidget {
                   CircleAvatar(
                     radius: 55.r,
                     child: ClipOval(
-                      child: Image.asset(AssetsStrings.abdallah),
+                      child: Image.asset(AssetsStrings.user),
                     ),
                   ),
                 ],
               ),
               SizedBox(height: 20.h),
               CustomText(
-                text: "Abdallah Dawood",
+                text: CacheHelper.getName(),
                 color: ColorManager.black,
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w700,
               ),
               CustomText(
-                text: "abdallah_dawood@gmail.com",
+                text: CacheHelper.getEmail(),
                 color: ColorManager.grey4,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w700,

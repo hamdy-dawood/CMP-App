@@ -8,11 +8,9 @@ class MainChatBubble extends StatelessWidget {
     super.key,
     this.isFriend = false,
     required this.message,
-    required this.time,
   });
   final bool isFriend;
   final String message;
-  final String time;
 
   @override
   Widget build(BuildContext context) {
@@ -39,27 +37,13 @@ class MainChatBubble extends StatelessWidget {
                 ),
           color: isFriend ? ColorManager.grey7 : ColorManager.mainColor,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              message,
-              style: TextStyle(
-                color: ColorManager.white,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(height: 5.h),
-            Text(
-              time,
-              style: TextStyle(
-                color: ColorManager.white,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
+        child: Text(
+          message,
+          style: TextStyle(
+            color: ColorManager.white,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ),
     );

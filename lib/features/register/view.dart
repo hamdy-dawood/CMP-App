@@ -1,3 +1,4 @@
+import 'package:cmp_app/core/helpers/cache_helper.dart';
 import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
@@ -103,6 +104,9 @@ class _RegisterBody extends StatelessWidget {
                       color: ColorManager.red,
                     );
                   } else if (state is RegisterSuccessState) {
+                    CacheHelper.saveName(cubit.usernameController.text);
+                    CacheHelper.saveEmail(cubit.emailController.text);
+
                     final auth = FirebaseAuth.instance;
                     late User user;
                     user = auth.currentUser!;

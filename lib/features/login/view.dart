@@ -75,7 +75,7 @@ class _LoginBody extends StatelessWidget {
                       color: ColorManager.red,
                     );
                   } else if (state is LoginSuccessState) {
-                    CacheHelper.saveName(cubit.emailController.text);
+                    CacheHelper.saveEmail(cubit.emailController.text);
                     MagicRouter.navigateTo(
                       page: const NavBarView(),
                       withHistory: false,

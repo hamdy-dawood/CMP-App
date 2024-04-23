@@ -1,3 +1,4 @@
+import 'package:cmp_app/core/helpers/cache_helper.dart';
 import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
@@ -32,7 +33,7 @@ class MainAppBarView extends StatelessWidget {
                     ),
                     Expanded(
                       child: CustomText(
-                        text: "Abdallah !",
+                        text: "${CacheHelper.getName()} !",
                         color: ColorManager.white,
                         fontSize: 24.sp,
                         fontWeight: FontWeight.w700,
@@ -61,7 +62,7 @@ class MainAppBarView extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 22.r,
                       child: ClipOval(
-                        child: Image.asset(AssetsStrings.abdallah),
+                        child: Image.asset(AssetsStrings.user),
                       ),
                     ),
                   ),

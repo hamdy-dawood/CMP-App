@@ -3,7 +3,7 @@ import 'constants.dart';
 class Message {
   final String id;
   final String message;
-  final String time;
+  final dynamic time;
 
   Message(
     this.id,

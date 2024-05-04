@@ -2,7 +2,10 @@ import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:cmp_app/core/widgets/search_text_field.dart';
+import 'package:cmp_app/features/nav_bar_pages/chat/cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'components/chat_item.dart';
@@ -13,7 +16,7 @@ class ChatsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController searchController = TextEditingController();
-
+    var chatCubit = context.read<ChatCubit>();
     return Scaffold(
       backgroundColor: ColorManager.white,
       appBar: PreferredSize(
@@ -58,18 +61,36 @@ class ChatsView extends StatelessWidget {
           ],
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: ListView(
-          children: const [
-            ChatItem(
-              image: AssetsStrings.abdallah,
-              name: "Abdallah Dawoood",
-              body: "I'm busy .",
-            ),
-          ],
-        ),
-      ),
+      body: StreamBuilder(
+          stream: chatCubit.getUsersStream(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasError) {
+              return const Text('there is an error');
+            }
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: ListView(
+                children: snapshot.data!.map<Widget>((userData) {
+                  if (userData['email'] !=
+                      FirebaseAuth.instance.currentUser!.email) {
+                    return ChatItem(
+                      image: AssetsStrings.abdallah,
+                      receiverUsername: userData['username'] ?? '',
+                      receiverId: userData['uid'],
+                      body: "I'm busy .",
+                    );
+                  } else {
+                    return Container();
+                  }
+                }).toList(),
+              ),
+            );
+          }),
     );
   }
 }

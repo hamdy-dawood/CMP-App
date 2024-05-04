@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,14 @@ class RegisterCubit extends Cubit<RegisterStates> {
     try {
       UserCredential user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      FirebaseFirestore.instance.collection("Users").doc(user.user!.uid).set(
+        {
+          'uid': user.user!.uid,
+          'email': email,
+          'username': usernameController.text,
+        },
+      );
       emit(RegisterSuccessState());
     } on FirebaseAuthException catch (ex) {
       emit(RegisterFailureState(stateMsg: ex.code.toString()));

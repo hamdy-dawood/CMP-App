@@ -9,11 +9,12 @@ class ChatItem extends StatelessWidget {
   const ChatItem({
     super.key,
     required this.image,
-    required this.name,
+    required this.receiverUsername,
     required this.body,
+    required this.receiverId,
   });
 
-  final String image, name, body;
+  final String image, receiverUsername, body, receiverId;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,8 @@ class ChatItem extends StatelessWidget {
         MagicRouter.navigateTo(
           page: ChatPage(
             image: image,
-            name: name,
+            receiverUsername: receiverUsername,
+            receiverId: receiverId,
           ),
         );
       },
@@ -43,7 +45,7 @@ class ChatItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: name,
+                      text: receiverUsername,
                       color: ColorManager.black,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w700,

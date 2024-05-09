@@ -6,6 +6,8 @@ class RegisterLoadingState extends RegisterStates {}
 
 class RegisterSuccessState extends RegisterStates {}
 
+class AllRegisterSuccessState extends RegisterStates {}
+
 class RegisterFailureState extends RegisterStates {
   final String stateMsg;
 
@@ -13,3 +15,5 @@ class RegisterFailureState extends RegisterStates {
 }
 
 class ChanceCheckBoxState extends RegisterStates {}
+
+class UploadImageStates extends RegisterStates {}

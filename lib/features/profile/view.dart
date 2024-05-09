@@ -15,6 +15,8 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(CacheHelper.getImage().replaceAll('\\', '').trim());
+
     return Scaffold(
       backgroundColor: ColorManager.white,
       appBar: CustomAppBar(
@@ -35,10 +37,17 @@ class ProfileView extends StatelessWidget {
                   Image.asset(
                     AssetsStrings.profile,
                   ),
-                  CircleAvatar(
-                    radius: 55.r,
-                    child: ClipOval(
-                      child: Image.asset(AssetsStrings.user),
+                  Container(
+                    height: 100.h,
+                    width: 100.h,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: const BoxDecoration(
+                      color: Colors.transparent,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.network(
+                      CacheHelper.getImage().replaceAll('\\', '').trim(),
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ],

@@ -38,4 +38,8 @@ class AssetsStrings {
   static const String covenants = "${baseIcons}covenants.svg";
   static const String remove = "${baseIcons}remove.svg";
   static const String time = "${baseIcons}time.svg";
+  static const String chooseProfileImage =
+      "${baseImages}choose_profile_image.svg";
+  static const String cameraAdd = "${baseIcons}time.svg";
+  static const String galleyAdd = "${baseIcons}remove.svg";
 }

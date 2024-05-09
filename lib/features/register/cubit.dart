@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cmp_app/core/helpers/cache_helper.dart';
+import 'package:cmp_app/core/helpers/dio_helper.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'states.dart';
 
@@ -17,6 +23,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
+  final dioManager = DioManager();
+  File? profileImage;
   bool isChecked = false;
 
   Future<void> registerUser({
@@ -43,9 +51,49 @@ class RegisterCubit extends Cubit<RegisterStates> {
     }
   }
 
+  Future<void> imageRegister() async {
+    emit(RegisterLoadingState());
+    try {
+      final response = await dioManager.post(
+        "https://camp-coding.site/as_graduation/user/home/image_uplouder.php",
+        data: FormData.fromMap(
+          {
+            "image": profileImage != null
+                ? MultipartFile.fromFileSync(
+                    profileImage!.path,
+                    filename: profileImage!.path.split("/").last,
+                  )
+                : null,
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        emit(AllRegisterSuccessState());
+        print("image:${response.data}");
+        CacheHelper.saveImage("${response.data.replaceAll('"', '')}");
+      } else {
+        emit(RegisterFailureState(stateMsg: response.data));
+      }
+    } on DioException catch (e) {
+      emit(RegisterFailureState(stateMsg: 'DioException error: $e'));
+    } catch (e) {
+      emit(RegisterFailureState(stateMsg: 'An unknown error: $e'));
+    }
+  }
+
   rememberCheckBox() {
     isChecked = !isChecked;
     emit(ChanceCheckBoxState());
+  }
+
+  chooseImage({ImageSource? source}) {
+    ImagePicker.platform.getImage(source: source!).then((value) {
+      if (value != null) {
+        profileImage = File(value.path);
+        emit(UploadImageStates());
+      }
+    });
   }
 
   @override

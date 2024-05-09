@@ -5,16 +5,19 @@ import 'package:cmp_app/features/nav_bar_pages/chat/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'chat_images_list.dart';
+
 class ChatItem extends StatelessWidget {
   const ChatItem({
     super.key,
-    required this.image,
+    required this.index,
     required this.receiverUsername,
     required this.body,
     required this.receiverId,
   });
 
-  final String image, receiverUsername, body, receiverId;
+  final int index;
+  final String receiverUsername, body, receiverId;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class ChatItem extends StatelessWidget {
       onTap: () {
         MagicRouter.navigateTo(
           page: ChatPage(
-            image: image,
+            image: chatImages[index],
             receiverUsername: receiverUsername,
             receiverId: receiverId,
           ),
@@ -37,7 +40,7 @@ class ChatItem extends StatelessWidget {
                 CircleAvatar(
                   radius: 30.r,
                   child: ClipOval(
-                    child: Image.asset(image),
+                    child: Image.asset(chatImages[index]),
                   ),
                 ),
                 SizedBox(width: 15.w),

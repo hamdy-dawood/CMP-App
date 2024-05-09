@@ -59,10 +59,17 @@ class MainAppBarView extends StatelessWidget {
                     onTap: () {
                       MagicRouter.navigateTo(page: const ProfileView());
                     },
-                    child: CircleAvatar(
-                      radius: 22.r,
-                      child: ClipOval(
-                        child: Image.asset(AssetsStrings.user),
+                    child: Container(
+                      height: 50.h,
+                      width: 50.h,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.network(
+                        CacheHelper.getImage().replaceAll('\\', '').trim(),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

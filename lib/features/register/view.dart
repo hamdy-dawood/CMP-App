@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cmp_app/core/helpers/cache_helper.dart';
 import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/assets.dart';
@@ -11,9 +13,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'cubit.dart';
 import 'states.dart';
+import 'widgets/pick_image_sheet.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
@@ -45,8 +50,35 @@ class _RegisterBody extends StatelessWidget {
             children: [
               Image.asset(
                 AssetsStrings.authImage,
-                height: 300.h,
+                height: 250.h,
               ),
+              BlocConsumer<RegisterCubit, RegisterStates>(
+                listener: (context, state) {
+                  if (state is UploadImageStates) {
+                    MagicRouter.navigatePop();
+                  }
+                },
+                builder: (context, state) {
+                  return PickImageWidget(
+                    title: "add_license_image",
+                    cubit: cubit,
+                    onTapTwo: () {
+                      cubit.chooseImage(
+                        source: ImageSource.gallery,
+                      );
+                    },
+                    onTapOne: () {
+                      cubit.chooseImage(
+                        source: ImageSource.camera,
+                      );
+                    },
+                    child: _PickImageChild(
+                      cubit: cubit,
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 12.h),
               _UsernameTextField(
                 usernameController: cubit.usernameController,
               ),
@@ -103,7 +135,7 @@ class _RegisterBody extends StatelessWidget {
                       message: state.stateMsg,
                       color: ColorManager.red,
                     );
-                  } else if (state is RegisterSuccessState) {
+                  } else if (state is AllRegisterSuccessState) {
                     CacheHelper.saveName(cubit.usernameController.text);
                     CacheHelper.saveEmail(cubit.emailController.text);
 
@@ -138,6 +170,7 @@ class _RegisterBody extends StatelessWidget {
                       press: () {
                         if (cubit.formKey.currentState!.validate() &&
                             cubit.isChecked) {
+                          cubit.imageRegister();
                           cubit.registerUser(
                             email: cubit.emailController.text,
                             password: cubit.passwordController.text,
@@ -289,6 +322,66 @@ class _ConfirmPasswordTextField extends StatelessWidget {
             return null;
           },
           isLastInput: true,
+        ),
+      ],
+    );
+  }
+}
+
+class _PickImageChild extends StatelessWidget {
+  const _PickImageChild({required this.cubit});
+
+  final RegisterCubit cubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        BlocBuilder<RegisterCubit, RegisterStates>(
+          builder: (context, state) {
+            return SizedBox(
+              child: cubit.profileImage != null
+                  ? Container(
+                      height: 90.h,
+                      width: 90.h,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image(
+                        image: FileImage(
+                          File(cubit.profileImage!.path),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : SvgPicture.asset(
+                      AssetsStrings.chooseProfileImage,
+                      height: 90.h,
+                    ),
+            );
+          },
+        ),
+        SizedBox(width: 10.w),
+        Expanded(
+          child: Column(
+            children: [
+              CustomText(
+                text: "Upload Your Profile Image",
+                color: ColorManager.black3,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w600,
+              ),
+              SizedBox(height: 5.h),
+              CustomText(
+                text: "(The image should not exceed 5 MB)",
+                color: ColorManager.grey,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
+              ),
+            ],
+          ),
         ),
       ],
     );

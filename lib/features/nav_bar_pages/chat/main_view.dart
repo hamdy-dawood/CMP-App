@@ -1,4 +1,3 @@
-import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:cmp_app/core/widgets/search_text_field.dart';
@@ -74,20 +73,22 @@ class ChatsView extends StatelessWidget {
             }
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: ListView(
-                children: snapshot.data!.map<Widget>((userData) {
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final userData = snapshot.data![index];
                   if (userData['email'] !=
                       FirebaseAuth.instance.currentUser!.email) {
                     return ChatItem(
-                      image: AssetsStrings.abdallah,
                       receiverUsername: userData['username'] ?? '',
                       receiverId: userData['uid'],
                       body: "I'm busy .",
+                      index: index, // Pass the index to ChatItem widget
                     );
                   } else {
                     return Container();
                   }
-                }).toList(),
+                },
               ),
             );
           }),

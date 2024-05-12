@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/helpers/navigator.dart';
 import 'features/nav_bar_pages/chat/cubit.dart';
+import 'features/register/cubit.dart';
 import 'features/splash/view.dart';
 
 class MyApp extends StatelessWidget {
@@ -18,8 +19,11 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
-          child: BlocProvider(
-            create: (context) => ChatCubit(),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => ChatCubit()),
+              BlocProvider(create: (context) => RegisterCubit()),
+            ],
             child: MaterialApp(
               title: "CMP App",
               debugShowCheckedModeBanner: false,

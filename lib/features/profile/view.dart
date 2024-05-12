@@ -4,9 +4,16 @@ import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/app_bar.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
+import 'package:cmp_app/core/widgets/svg_icons.dart';
+import 'package:cmp_app/features/bottom_nav_bar/view.dart';
 import 'package:cmp_app/features/covenants/view.dart';
+import 'package:cmp_app/features/register/cubit.dart';
+import 'package:cmp_app/features/register/states.dart';
+import 'package:cmp_app/features/register/widgets/pick_image_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'widgets/profile_item.dart';
 
@@ -15,7 +22,7 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(CacheHelper.getImage().replaceAll('\\', '').trim());
+    final cubit = RegisterCubit.get(context);
 
     return Scaffold(
       backgroundColor: ColorManager.white,
@@ -45,14 +52,60 @@ class ProfileView extends StatelessWidget {
                       color: Colors.transparent,
                       shape: BoxShape.circle,
                     ),
-                    child: Image.network(
-                      CacheHelper.getImage().replaceAll('\\', '').trim(),
-                      fit: BoxFit.cover,
-                    ),
+                    child: CacheHelper.getImage().isNotEmpty
+                        ? Image.network(
+                            CacheHelper.getImage().replaceAll('\\', '').trim(),
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            AssetsStrings.user,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ],
               ),
               SizedBox(height: 20.h),
+              BlocConsumer<RegisterCubit, RegisterStates>(
+                listener: (context, state) {
+                  if (state is UploadImageStates) {
+                    MagicRouter.navigatePop();
+                    cubit.imageRegister();
+                  } else if (state is AllRegisterSuccessState) {
+                    MagicRouter.navigateTo(
+                      page: const NavBarView(),
+                      withHistory: false,
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  if (state is RegisterLoadingState) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.mainColor,
+                      ),
+                    );
+                  }
+                  return PickImageWidget(
+                    cubit: cubit,
+                    onTapTwo: () {
+                      cubit.chooseImage(
+                        source: ImageSource.gallery,
+                      );
+                    },
+                    onTapOne: () {
+                      cubit.chooseImage(
+                        source: ImageSource.camera,
+                      );
+                    },
+                    child: SvgIcon(
+                      icon: AssetsStrings.camera,
+                      color: ColorManager.purple,
+                      height: 20.h,
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 10.h),
               CustomText(
                 text: CacheHelper.getName(),
                 color: ColorManager.black,
@@ -94,6 +147,7 @@ class ProfileView extends StatelessWidget {
                   icon: AssetsStrings.covenants,
                   title: "Covenants",
                   subTitle: "",
+                  withTrailing: true,
                 ),
               ),
             ],

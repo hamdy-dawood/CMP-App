@@ -20,6 +20,8 @@ class AssetsStrings {
   static const String paper = "${baseImages}paper.png";
   static const String homeImage = "${baseImages}home_image.png";
   static const String taskSentImage = "${baseImages}task_sent_image.png";
+  static const String cameraAdd = "${baseImages}camera_circle.svg";
+  static const String galleyAdd = "${baseImages}gellary_circle.svg";
 
   // Icons
   static const String google = "${baseIcons}google.svg";
@@ -28,6 +30,8 @@ class AssetsStrings {
   static const String list = "${baseIcons}list.svg";
   static const String chat = "${baseIcons}chat.svg";
   static const String notify = "${baseIcons}notify.svg";
+  static const String unReadNotify = "${baseIcons}un_read_notify.svg";
+  static const String camera = "${baseIcons}camera.svg";
   static const String reload = "${baseIcons}reload.svg";
   static const String eye = "${baseIcons}eye.svg";
   static const String delete = "${baseIcons}delete.svg";
@@ -40,6 +44,4 @@ class AssetsStrings {
   static const String time = "${baseIcons}time.svg";
   static const String chooseProfileImage =
       "${baseImages}choose_profile_image.svg";
-  static const String cameraAdd = "${baseIcons}time.svg";
-  static const String galleyAdd = "${baseIcons}remove.svg";
 }

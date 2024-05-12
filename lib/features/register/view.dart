@@ -25,10 +25,7 @@ class RegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterCubit(),
-      child: const _RegisterBody(),
-    );
+    return const _RegisterBody();
   }
 }
 
@@ -60,7 +57,6 @@ class _RegisterBody extends StatelessWidget {
                 },
                 builder: (context, state) {
                   return PickImageWidget(
-                    title: "add_license_image",
                     cubit: cubit,
                     onTapTwo: () {
                       cubit.chooseImage(

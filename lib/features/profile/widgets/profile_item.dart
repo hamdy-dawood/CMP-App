@@ -1,8 +1,10 @@
+import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:cmp_app/core/widgets/svg_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileItem extends StatelessWidget {
   const ProfileItem({
@@ -10,8 +12,11 @@ class ProfileItem extends StatelessWidget {
     required this.title,
     required this.subTitle,
     required this.icon,
+    this.withTrailing = false,
   });
+
   final String title, subTitle, icon;
+  final bool withTrailing;
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +67,12 @@ class ProfileItem extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            // SvgIcon(
-            //   icon: AssetsStrings.delete,
-            //   color: ColorManager.purple,
-            //   height: 28.h,
-            // ),
+            withTrailing
+                ? SvgPicture.asset(
+                    AssetsStrings.unReadNotify,
+                    height: 25.h,
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
       ),

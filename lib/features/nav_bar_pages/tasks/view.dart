@@ -1,5 +1,6 @@
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/app_bar.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -34,10 +35,20 @@ class _TasksViewState extends State<TasksView>
   }
 }
 
-class _TasksBody extends StatelessWidget {
+class _TasksBody extends StatefulWidget {
   const _TasksBody({required this.tabController});
 
   final TabController tabController;
+
+  @override
+  State<_TasksBody> createState() => _TasksBodyState();
+}
+
+class _TasksBodyState extends State<_TasksBody> {
+  final EasyInfiniteDateTimelineController _controller =
+      EasyInfiniteDateTimelineController();
+
+  DateTime? _focusDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +66,19 @@ class _TasksBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Container(
-            //   margin: EdgeInsets.symmetric(vertical: 20.h),
-            //   height: 150.h,
-            //   width: 0.8.sw,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(12.r),
-            //     color: ColorManager.mainColor,
-            //   ),
-            // ),
+            EasyInfiniteDateTimeLine(
+              activeColor: ColorManager.mainColor,
+              selectionMode: const SelectionMode.alwaysFirst(),
+              controller: _controller,
+              firstDate: DateTime(2024),
+              focusDate: _focusDate,
+              lastDate: DateTime(2025, 12, 31),
+              onDateChange: (selectedDate) {
+                setState(() {
+                  _focusDate = selectedDate;
+                });
+              },
+            ),
             SizedBox(height: 20.h),
             Container(
               height: 58.h,
@@ -75,7 +90,7 @@ class _TasksBody extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(4.h),
                 child: TabBar(
-                  controller: tabController,
+                  controller: widget.tabController,
                   indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(7.r),
                     color: ColorManager.mainColor,
@@ -105,7 +120,7 @@ class _TasksBody extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: TabBarView(
-                  controller: tabController,
+                  controller: widget.tabController,
                   children: [
                     ListView(
                       children: [

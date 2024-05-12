@@ -83,7 +83,8 @@ class ChatsView extends StatelessWidget {
                       receiverUsername: userData['username'] ?? '',
                       receiverId: userData['uid'],
                       body: "I'm busy .",
-                      index: index, // Pass the index to ChatItem widget
+                      index: index,
+                      inHome: false,
                     );
                   } else {
                     return Container();

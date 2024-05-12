@@ -52,11 +52,25 @@ class TaskDetails extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.h),
-            CustomText(
-              text: "Sub Task",
-              color: ColorManager.black,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w700,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomText(
+                  text: "Sub Task",
+                  color: ColorManager.black,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: CustomText(
+                    text: "See All",
+                    color: ColorManager.grey4,
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 10.h),
             GestureDetector(

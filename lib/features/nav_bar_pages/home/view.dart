@@ -1,8 +1,12 @@
 import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
+import 'package:cmp_app/features/nav_bar_pages/chat/components/chat_item.dart';
+import 'package:cmp_app/features/nav_bar_pages/chat/cubit.dart';
 import 'package:cmp_app/features/nav_bar_pages/home/widgets/percent_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'widgets/fl_chart.dart';
@@ -15,6 +19,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var chatCubit = context.read<ChatCubit>();
     return Scaffold(
       backgroundColor: ColorManager.mainColor,
       body: Column(
@@ -45,6 +50,65 @@ class HomeView extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 20.w, right: 20.w, top: 10.h),
+                              child: Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: CustomText(
+                                      text: "Chats",
+                                      color: ColorManager.mainColor,
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  SizedBox(height: 20.h),
+                                  SizedBox(
+                                    height: 120.h,
+                                    child: StreamBuilder(
+                                        stream: chatCubit.getUsersStream(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          }
+                                          if (snapshot.hasError) {
+                                            return const Text(
+                                                'there is an error');
+                                          }
+                                          return ListView.builder(
+                                            itemCount: snapshot.data!.length,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              final userData =
+                                                  snapshot.data![index];
+                                              if (userData['email'] !=
+                                                  FirebaseAuth.instance
+                                                      .currentUser!.email) {
+                                                return ChatItem(
+                                                  receiverUsername:
+                                                      userData['username'] ??
+                                                          '',
+                                                  receiverId: userData['uid'],
+                                                  body: "I'm busy .",
+                                                  index: index,
+                                                  inHome: true,
+                                                );
+                                              } else {
+                                                return Container();
+                                              }
+                                            },
+                                          );
+                                        }),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 20.w, right: 20.w),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -56,9 +120,7 @@ class HomeView extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                   ),
                                   TextButton(
-                                    onPressed: () {
-                                      // navigateTo(page: const RecommendView());
-                                    },
+                                    onPressed: () {},
                                     child: CustomText(
                                       text: "See All",
                                       color: ColorManager.grey4,

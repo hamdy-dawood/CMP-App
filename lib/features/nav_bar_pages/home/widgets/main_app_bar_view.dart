@@ -67,10 +67,17 @@ class MainAppBarView extends StatelessWidget {
                         color: Colors.transparent,
                         shape: BoxShape.circle,
                       ),
-                      child: Image.network(
-                        CacheHelper.getImage().replaceAll('\\', '').trim(),
-                        fit: BoxFit.cover,
-                      ),
+                      child: CacheHelper.getImage().isNotEmpty
+                          ? Image.network(
+                              CacheHelper.getImage()
+                                  .replaceAll('\\', '')
+                                  .trim(),
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              AssetsStrings.user,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   ),
                 ],

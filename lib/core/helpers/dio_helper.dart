@@ -44,7 +44,7 @@ class DioManager {
   }
 
   Future<Response> post(String url,
-      {Map<String, dynamic>? header, FormData? data}) {
+      {Map<String, dynamic>? header, dynamic data}) {
     return dio!.post(url, data: data, options: Options(headers: header));
   }
 

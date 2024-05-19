@@ -58,6 +58,7 @@ class ProfileItem extends StatelessWidget {
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w400,
                 ),
+                if(subTitle.isNotEmpty)
                 CustomText(
                   text: subTitle,
                   color: ColorManager.grey,

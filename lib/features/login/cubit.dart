@@ -20,8 +20,7 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       emit(LoginLoadingState());
       bool? isEmailVerified = FirebaseAuth.instance.currentUser?.emailVerified;
-      UserCredential user = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      UserCredential user = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
 
       if (isEmailVerified == true) {
         emit(LoginSuccessState());

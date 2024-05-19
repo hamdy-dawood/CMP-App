@@ -1,3 +1,8 @@
+import 'package:cmp_app/features/covenants/covenants_cubit.dart';
+import 'package:cmp_app/features/nav_bar_pages/tasks/tasks_cubit.dart';
+import 'package:cmp_app/features/notifications/notifications_cubit.dart';
+import 'package:cmp_app/features/profile/profile_data_cubit.dart';
+import 'package:cmp_app/features/task_details/task_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +28,11 @@ class MyApp extends StatelessWidget {
             providers: [
               BlocProvider(create: (context) => ChatCubit()),
               BlocProvider(create: (context) => RegisterCubit()),
+              BlocProvider(create: (context) => TasksCubit()),
+              BlocProvider(create: (context) => TaskDetailsCubit()),
+              BlocProvider(create: (context) => NotificationsCubit()),
+              BlocProvider(create: (context) => CovenantsCubit()),
+              BlocProvider(create: (context) => ProfileDataCubit()),
             ],
             child: MaterialApp(
               title: "CMP App",

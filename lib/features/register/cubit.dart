@@ -20,8 +20,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   final dioManager = DioManager();
   File? profileImage;
@@ -70,7 +69,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
       if (response.statusCode == 200) {
         emit(AllRegisterSuccessState());
-        print("image:${response.data}");
         CacheHelper.saveImage("${response.data.replaceAll('"', '')}");
       } else {
         emit(RegisterFailureState(stateMsg: response.data));

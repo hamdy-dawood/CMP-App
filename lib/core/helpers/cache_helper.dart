@@ -5,6 +5,7 @@ class CacheHelper {
   static const _imageKey = 'image';
   static const _nameKey = 'name';
   static const _emailKey = 'email';
+  static const _idKey = 'id';
 
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -41,6 +42,11 @@ class CacheHelper {
       return "";
     }
   }
+
+  static Future<void> saveId(String id) async => _prefs?.setString(_idKey, id);
+
+  static String getId() => _prefs?.getString(_idKey) ?? "1";
+
 
   static Future<bool> saveEmail(String email) async {
     try {

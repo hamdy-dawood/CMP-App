@@ -4,14 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class PieChartWidget extends StatelessWidget {
-  const PieChartWidget({super.key});
+  final double finishOnTime;
+  final double pastDeadline;
+  final double stillAngling;
+  const PieChartWidget({super.key, required this.finishOnTime, required this.pastDeadline, required this.stillAngling});
 
   @override
   Widget build(BuildContext context) {
     Map<String, double> dataMap = {
-      "Finish on time": 6,
-      "Past the deadline ": 3,
-      "Still angling": 2,
+      "Finish on time": finishOnTime,
+      "Past the deadline ": pastDeadline,
+      "Still angling": stillAngling,
     };
 
     return PieChart(

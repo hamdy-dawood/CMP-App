@@ -3,34 +3,22 @@ import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:cmp_app/core/widgets/svg_icons.dart';
+import 'package:cmp_app/features/nav_bar_pages/tasks/model.dart';
 import 'package:cmp_app/features/task_details/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class TaskItemTasks extends StatelessWidget {
-  const TaskItemTasks(
-      {super.key,
-      required this.timeFrom,
-      required this.timeTo,
-      required this.mainColor,
-      required this.title,
-      required this.subtitle,
-      required this.percent,
-      required this.percentText});
-
-  final Color mainColor;
-  final String timeFrom, timeTo;
-  final String title, subtitle;
-  final double percent;
-  final String percentText;
+  final Task task;
+  const TaskItemTasks({super.key, required this.task,});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         MagicRouter.navigateTo(
-          page: const TaskDetails(),
+          page: TaskDetails(task: task,),
         );
       },
       child: Padding(
@@ -42,14 +30,14 @@ class TaskItemTasks extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CustomText(
-                  text: timeFrom,
+                  text: task.fromTime??'',
                   color: ColorManager.black,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
                 ),
                 SizedBox(height: 15.h),
                 CustomText(
-                  text: timeTo,
+                  text: task.toTime??'',
                   color: ColorManager.black,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
@@ -67,14 +55,14 @@ class TaskItemTasks extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.r),
-                  color: mainColor.withOpacity(0.1),
+                  color: ColorManager.mainColor.withOpacity(0.1),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: title,
+                      text: task.title??'',
                       color: ColorManager.black,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w400,
@@ -84,12 +72,12 @@ class TaskItemTasks extends StatelessWidget {
                       children: [
                         SvgIcon(
                           icon: AssetsStrings.time,
-                          color: mainColor,
+                          color: ColorManager.mainColor,
                           height: 12.h,
                         ),
                         SizedBox(width: 5.w),
                         CustomText(
-                          text: subtitle,
+                          text: task.day??'',
                           color: ColorManager.black,
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
@@ -101,10 +89,10 @@ class TaskItemTasks extends StatelessWidget {
                       animation: true,
                       lineHeight: 15,
                       animationDuration: 1000,
-                      percent: percent,
-                      center: FittedBox(child: Text(percentText)),
+                      percent: 1,
+                      center: const FittedBox(child: Text("100%")),
                       barRadius: Radius.circular(20.r),
-                      progressColor: mainColor,
+                      progressColor: ColorManager.mainColor,
                       backgroundColor: ColorManager.white,
                     ),
                   ],

@@ -3,15 +3,33 @@ import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/app_bar.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
+import 'package:cmp_app/core/widgets/error_widget.dart';
 import 'package:cmp_app/features/nav_bar_pages/home/widgets/task_item.dart';
+import 'package:cmp_app/features/nav_bar_pages/tasks/model.dart';
+import 'package:cmp_app/features/task_details/task_details_cubit.dart';
 import 'package:cmp_app/features/task_sent/view.dart';
+import 'package:cmp_app/features/upload_files/upload_file_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'widgets/pie_chart.dart';
 
-class TaskDetails extends StatelessWidget {
-  const TaskDetails({super.key});
+class TaskDetails extends StatefulWidget {
+  final Task task;
+  const TaskDetails({super.key, required this.task});
+
+  @override
+  State<TaskDetails> createState() => _TaskDetailsState();
+}
+
+class _TaskDetailsState extends State<TaskDetails> {
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<TaskDetailsCubit>(context).getTaskDetails(widget.task.taskId??'');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +47,17 @@ class TaskDetails extends StatelessWidget {
           children: [
             SizedBox(height: 20.h),
             CustomText(
-              text: "User experience design",
+              text: widget.task.title??'',
               color: ColorManager.black,
               fontSize: 24.sp,
               fontWeight: FontWeight.w400,
             ),
             SizedBox(height: 10.h),
-            const PieChartWidget(),
+            PieChartWidget(
+              finishOnTime: double.parse(widget.task.finishOnTimePerc??"0"),
+              pastDeadline: double.parse(widget.task.pastDeadline??"0"),
+              stillAngling: double.parse(widget.task.stillAngling??"0"),
+            ),
             SizedBox(height: 20.h),
             CustomText(
               text: "Description",
@@ -44,7 +66,7 @@ class TaskDetails extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
             Text(
-              "The user query is incomplete and it is unclear what the user is looking for. The web results contain two different definitions of description. According to the first definition, description means the act or method of describing, sort, kind, variety, or the act or process of describing.",
+              widget.task.taskDescription??'',
               style: TextStyle(
                 color: ColorManager.grey4,
                 fontSize: 12.sp,
@@ -73,26 +95,36 @@ class TaskDetails extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10.h),
-            GestureDetector(
-              onTap: () {
-                MagicRouter.navigateTo(page: const TaskSentView());
+            BlocBuilder<TaskDetailsCubit, TaskDetailsState>(
+              builder: (context, state) {
+                if(state is TaskDetailsSuccessState) {
+                  return ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: List.generate(
+                      state.taskDetailsModel.message?.length??0,
+                      (index) => GestureDetector(
+                        onTap: () {
+                          // MagicRouter.navigateTo(page: const TaskSentView());
+                          MagicRouter.navigateTo(page: const UploadFilesView());
+                        },
+                        child: TaskItem(
+                          image: AssetsStrings.task1Image,
+                          title: state.taskDetailsModel.message?[index].name??'',
+                          date: state.taskDetailsModel.message?[index].time??'',
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                if(state is TaskDetailsErrorState){
+                  return DefaultErrorWidget(onTap: () => BlocProvider.of<TaskDetailsCubit>(context).getTaskDetails(widget.task.taskId??''), errorMessage: state.message);
+                }else{
+                  return Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),);
+                }
               },
-              child: const TaskItem(
-                image: AssetsStrings.task1Image,
-                title: "Education app design",
-                date: "18 Aug 2024",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                MagicRouter.navigateTo(page: const TaskSentView());
-              },
-              child: const TaskItem(
-                image: AssetsStrings.task2Image,
-                title: "Dashboard redesign",
-                date: "18 Aug 2024",
-              ),
             )
+
           ],
         ),
       ),

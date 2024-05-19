@@ -53,11 +53,7 @@ class TaskItem extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            SvgIcon(
-              icon: AssetsStrings.delete,
-              color: ColorManager.purple,
-              height: 28.h,
-            ),
+            Icon(Icons.arrow_circle_up_outlined,color: ColorManager.grey,),
           ],
         ),
       ),

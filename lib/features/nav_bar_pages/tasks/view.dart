@@ -1,7 +1,11 @@
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/app_bar.dart';
+import 'package:cmp_app/core/widgets/default_empty_widget.dart';
+import 'package:cmp_app/core/widgets/error_widget.dart';
+import 'package:cmp_app/features/nav_bar_pages/tasks/tasks_cubit.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'widgets/task_item.dart';
@@ -19,6 +23,7 @@ class _TasksViewState extends State<TasksView>
 
   @override
   void initState() {
+    BlocProvider.of<TasksCubit>(context).getTasks();
     tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -46,7 +51,7 @@ class _TasksBody extends StatefulWidget {
 
 class _TasksBodyState extends State<_TasksBody> {
   final EasyInfiniteDateTimelineController _controller =
-      EasyInfiniteDateTimelineController();
+  EasyInfiniteDateTimelineController();
 
   DateTime? _focusDate = DateTime.now();
 
@@ -116,59 +121,40 @@ class _TasksBodyState extends State<_TasksBody> {
               ),
             ),
             SizedBox(height: 30.h),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child: TabBarView(
-                  controller: widget.tabController,
-                  children: [
-                    ListView(
-                      children: [
-                        TaskItemTasks(
-                          timeFrom: "09:00 AM",
-                          timeTo: "10:00 PM",
-                          mainColor: ColorManager.orange,
-                          title: "Landing page design",
-                          subtitle: "2AM - 5PM",
-                          percent: 1,
-                          percentText: "100 %",
-                        ),
-                        TaskItemTasks(
-                          timeFrom: "11:00 AM",
-                          timeTo: "11:00 PM",
-                          mainColor: ColorManager.purple,
-                          title: "Education app design",
-                          subtitle: "12AM - 4PM",
-                          percent: 0.3,
-                          percentText: "30 %",
-                        ),
-                        TaskItemTasks(
-                          timeFrom: "12:00 AM",
-                          timeTo: "10:00 PM",
-                          mainColor: ColorManager.blueSky,
-                          title: "Dashboard redesign",
-                          subtitle: "12AM - 4PM",
-                          percent: 0.8,
-                          percentText: "80 %",
-                        ),
-                      ],
+            BlocBuilder<TasksCubit, TasksState>(
+              builder: (context, state) {
+                if(state is TasksSuccessState) {
+                  return Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: TabBarView(
+                        controller: widget.tabController,
+                        children: [
+                          ListView(
+                            children: List.generate(state.tasksModel.message?.length??0, (index) => TaskItemTasks(
+                              task: (state.tasksModel.message??[])[index],
+                            )),
+                          ),
+                          if(state.todayTasks.isEmpty)
+                            const DefaultEmptyWidget(message: "No Tasks Today."),
+                          if(state.todayTasks.isNotEmpty)
+                          ListView(
+                            children: List.generate(state.todayTasks.length, (index) => TaskItemTasks(
+                              task: state.todayTasks[index],
+                            )),
+                          ),
+                        ],
+                      ),
                     ),
-                    ListView(
-                      children: [
-                        TaskItemTasks(
-                          timeFrom: "12:00 AM",
-                          timeTo: "10:00 PM",
-                          mainColor: ColorManager.blueSky,
-                          title: "Dashboard redesign",
-                          subtitle: "12AM - 4PM",
-                          percent: 0.8,
-                          percentText: "80 %",
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                  );
+                }
+                if(state is TasksErrorState){
+                  return DefaultErrorWidget(onTap: () => BlocProvider.of<TasksCubit>(context).getTasks(), errorMessage: state.message);
+                }
+                else{
+                  return Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),);
+                }
+              },
             ),
           ],
         ),

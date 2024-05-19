@@ -2,13 +2,28 @@ import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
+import 'package:cmp_app/core/widgets/error_widget.dart';
+import 'package:cmp_app/features/notifications/notifications_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'widget/notification_item.dart';
 
-class NotificationsView extends StatelessWidget {
+class NotificationsView extends StatefulWidget {
   const NotificationsView({super.key});
+
+  @override
+  State<NotificationsView> createState() => _NotificationsViewState();
+}
+
+class _NotificationsViewState extends State<NotificationsView> {
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<NotificationsCubit>(context).getNotifications();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,16 +94,30 @@ class NotificationsView extends StatelessWidget {
                 ],
               ),
             ),
-            const NotificationItem(
-              icon: AssetsStrings.entryDate,
-              title: "Create Landing page",
-              subTitle: "2h ago / sep - 06:00",
-            ),
-            const NotificationItem(
-              icon: AssetsStrings.entryDate,
-              title: "Make logo",
-              subTitle: "2h ago / sep - 06:00",
-            ),
+
+            BlocBuilder<NotificationsCubit, NotificationsState>(
+              builder: (context, state) {
+                if(state is NotificationsSuccessState) {
+                  return ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: List.generate(
+                      state.notificationsModel.message?.length??0,
+                          (index) => NotificationItem(
+                            icon: AssetsStrings.entryDate,
+                            title: state.notificationsModel.message?[index].title??'',
+                            subTitle: (state.notificationsModel.message?[index].createdAt??'').split(" ")[0],
+                          ),
+                    ),
+                  );
+                }
+                if(state is NotificationsErrorState){
+                  return DefaultErrorWidget(onTap: () => BlocProvider.of<NotificationsCubit>(context).getNotifications(), errorMessage: state.message);
+                }else{
+                  return Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),);
+                }
+              },
+            )
           ],
         ),
       ),

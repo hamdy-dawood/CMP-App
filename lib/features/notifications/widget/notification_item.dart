@@ -58,12 +58,12 @@ class NotificationItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Spacer(),
-                SvgIcon(
-                  icon: AssetsStrings.remove,
-                  color: ColorManager.grey3,
-                  height: 28.h,
-                ),
+                // const Spacer(),
+                // SvgIcon(
+                //   icon: AssetsStrings.remove,
+                //   color: ColorManager.grey3,
+                //   height: 28.h,
+                // ),
               ],
             ),
             SizedBox(height: 10.h),

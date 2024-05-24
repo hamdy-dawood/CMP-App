@@ -21,4 +21,5 @@ class ColorManager {
   static Color dividersLight = const Color.fromRGBO(233, 233, 233, 1);
   static Color greyIndicator = const Color.fromRGBO(137, 139, 154, 1);
   static Color red = const Color.fromRGBO(215, 15, 23, 1);
+  static Color successGreen = const Color(0xff00ce21);
 }

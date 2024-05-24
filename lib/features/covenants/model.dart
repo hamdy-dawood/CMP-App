@@ -30,7 +30,7 @@ class Message {
   String? image;
   String? title;
   String? deliveryDate;
-  String? backToCompany;
+  String? delivered;
   String? discription;
   String? location;
 
@@ -40,7 +40,7 @@ class Message {
         this.image,
         this.title,
         this.deliveryDate,
-        this.backToCompany,
+        this.delivered,
         this.discription,
         this.location});
 
@@ -50,7 +50,7 @@ class Message {
     image = json['image'];
     title = json['title'];
     deliveryDate = json['delivery_date'];
-    backToCompany = json['back_to_company'];
+    delivered = json['delivered'];
     discription = json['discription'];
     location = json['location'];
   }
@@ -62,7 +62,7 @@ class Message {
     data['image'] = this.image;
     data['title'] = this.title;
     data['delivery_date'] = this.deliveryDate;
-    data['back_to_company'] = this.backToCompany;
+    data['delivered'] = this.delivered;
     data['discription'] = this.discription;
     data['location'] = this.location;
     return data;

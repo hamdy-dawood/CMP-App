@@ -4,13 +4,18 @@ import 'package:cmp_app/core/theming/assets.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
 import 'package:cmp_app/core/widgets/svg_icons.dart';
+import 'package:cmp_app/features/nav_bar_pages/home/home_cubit.dart';
+import 'package:cmp_app/features/nav_bar_pages/home/model.dart';
 import 'package:cmp_app/features/notifications/view.dart';
 import 'package:cmp_app/features/profile/view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainAppBarView extends StatelessWidget {
-  const MainAppBarView({super.key});
+  final UserData? userData;
+  final double totalTarget;
+  const MainAppBarView({super.key, required this.userData, required this.totalTarget});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class MainAppBarView extends StatelessWidget {
                     ),
                     Expanded(
                       child: CustomText(
-                        text: "${CacheHelper.getName()} !",
+                        text: userData?.name??'',
                         color: ColorManager.white,
                         fontSize: 24.sp,
                         fontWeight: FontWeight.w700,
@@ -67,11 +72,9 @@ class MainAppBarView extends StatelessWidget {
                         color: Colors.transparent,
                         shape: BoxShape.circle,
                       ),
-                      child: CacheHelper.getImage().isNotEmpty
+                      child: (userData?.imageUrl??'').isNotEmpty
                           ? Image.network(
-                              CacheHelper.getImage()
-                                  .replaceAll('\\', '')
-                                  .trim(),
+                              userData?.imageUrl??'',
                               fit: BoxFit.cover,
                             )
                           : Image.asset(
@@ -103,7 +106,7 @@ class MainAppBarView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       CustomText(
-                        text: "8 180.08",
+                        text: totalTarget.toString(),
                         color: ColorManager.white,
                         fontSize: 28.sp,
                         fontWeight: FontWeight.w700,
@@ -119,10 +122,13 @@ class MainAppBarView extends StatelessWidget {
                   ),
                 ],
               ),
-              SvgIcon(
-                icon: AssetsStrings.reload,
-                color: ColorManager.grey5,
-                height: 25.h,
+              InkWell(
+                onTap: () =>  BlocProvider.of<HomeCubit>(context).getHome(),
+                child: SvgIcon(
+                  icon: AssetsStrings.reload,
+                  color: ColorManager.grey5,
+                  height: 25.h,
+                ),
               ),
             ],
           ),

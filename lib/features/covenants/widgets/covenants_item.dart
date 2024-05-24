@@ -1,5 +1,6 @@
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
+import 'package:cmp_app/core/widgets/remember_me_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,10 +10,12 @@ class CovenantsItem extends StatelessWidget {
     required this.image,
     required this.title,
     required this.subTitle,
-    required this.address,
+    required this.address, required this.isCheck, required this.covenantId,
   });
 
   final String image, title, subTitle, address;
+  final bool isCheck;
+  final String covenantId;
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +76,11 @@ class CovenantsItem extends StatelessWidget {
                         color: ColorManager.grey4,
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w400,
+                        maxLines: 3,
                       ),
                     ),
+                    SizedBox(width: 5.w,),
+                    RememberMeWidget(isCheck: isCheck, covenantId: covenantId,),
                   ],
                 ),
               ],

@@ -65,6 +65,7 @@ class _ProfileViewState extends State<ProfileView> {
                           height: 100.h,
                           width: 100.h,
                           clipBehavior: Clip.antiAlias,
+                          margin: EdgeInsets.only(bottom: 15.h),
                           decoration: const BoxDecoration(
                             color: Colors.transparent,
                             shape: BoxShape.circle,
@@ -76,48 +77,48 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.h),
-                    BlocConsumer<RegisterCubit, RegisterStates>(
-                      listener: (context, state) {
-                        if (state is UploadImageStates) {
-                          MagicRouter.navigatePop();
-                          cubit.imageRegister();
-                        } else if (state is AllRegisterSuccessState) {
-                          MagicRouter.navigateTo(
-                            page: const NavBarView(),
-                            withHistory: false,
-                          );
-                        }
-                      },
-                      builder: (context, state) {
-                        if (state is RegisterLoadingState) {
-                          return Center(
-                            child: CircularProgressIndicator(
-                              color: ColorManager.mainColor,
-                            ),
-                          );
-                        }
-                        return PickImageWidget(
-                          cubit: cubit,
-                          onTapTwo: () {
-                            cubit.chooseImage(
-                              source: ImageSource.gallery,
-                            );
-                          },
-                          onTapOne: () {
-                            cubit.chooseImage(
-                              source: ImageSource.camera,
-                            );
-                          },
-                          child: SvgIcon(
-                            icon: AssetsStrings.camera,
-                            color: ColorManager.purple,
-                            height: 20.h,
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(height: 10.h),
+                    // SizedBox(height: 20.h),
+                    // BlocConsumer<RegisterCubit, RegisterStates>(
+                    //   listener: (context, state) {
+                    //     if (state is UploadImageStates) {
+                    //       MagicRouter.navigatePop();
+                    //       cubit.imageRegister();
+                    //     } else if (state is AllRegisterSuccessState) {
+                    //       MagicRouter.navigateTo(
+                    //         page: const NavBarView(),
+                    //         withHistory: false,
+                    //       );
+                    //     }
+                    //   },
+                    //   builder: (context, state) {
+                    //     if (state is RegisterLoadingState) {
+                    //       return Center(
+                    //         child: CircularProgressIndicator(
+                    //           color: ColorManager.mainColor,
+                    //         ),
+                    //       );
+                    //     }
+                    //     return PickImageWidget(
+                    //       cubit: cubit,
+                    //       onTapTwo: () {
+                    //         cubit.chooseImage(
+                    //           source: ImageSource.gallery,
+                    //         );
+                    //       },
+                    //       onTapOne: () {
+                    //         cubit.chooseImage(
+                    //           source: ImageSource.camera,
+                    //         );
+                    //       },
+                    //       child: SvgIcon(
+                    //         icon: AssetsStrings.camera,
+                    //         color: ColorManager.purple,
+                    //         height: 20.h,
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                    // SizedBox(height: 10.h),
                     CustomText(
                       text: state.profileDataModel.message?.name??'',
                       color: ColorManager.black,
@@ -168,7 +169,10 @@ class _ProfileViewState extends State<ProfileView> {
               if(state is ProfileDataErrorState){
                 return DefaultErrorWidget(onTap: () => BlocProvider.of<ProfileDataCubit>(context).getProfileData(), errorMessage: state.message);
               }else{
-                return Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),);
+                return Center(child: Padding(
+                  padding: EdgeInsets.only(top:  100.h),
+                  child: CircularProgressIndicator(color: ColorManager.mainColor,),
+                ),);
               }
             },
           ),

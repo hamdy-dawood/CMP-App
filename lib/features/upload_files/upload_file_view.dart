@@ -1,15 +1,20 @@
+import 'package:cmp_app/core/functions/app_functions.dart';
 import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_elevated.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
+import 'package:cmp_app/features/upload_files/upload_file_cubit.dart';
 import 'package:cmp_app/features/upload_files/widgets/upload_files_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:file_picker/file_picker.dart';
 
 
 class UploadFilesView extends StatefulWidget {
-  const UploadFilesView({super.key});
+  final String taskId;
+  final String subTaskId;
+  const UploadFilesView({super.key, required this.taskId, required this.subTaskId});
 
   @override
   State<UploadFilesView> createState() => _UploadFilesViewState();
@@ -22,14 +27,15 @@ class _UploadFilesViewState extends State<UploadFilesView> {
   List<String?> images = [];
   List<String?> imagesNames = [];
 
-  Future<void> pickFile () async {
+  Future<void> pickFile() async {
     result =
-    await FilePicker.platform.pickFiles(
-      allowMultiple: true,  type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'doc'],
-        );
+    await FilePicker.platform.pickFiles();
     if (result != null) {
       for (var element in result!.files) {
+        if(mounted) {
+          BlocProvider.of<UploadFileCubit>(context)
+              .uploadFile(filePath: element.path??'');
+        }
         images.add(element.path);
         imagesNames.add(element.name);
         debugPrint(element.name);
@@ -37,11 +43,11 @@ class _UploadFilesViewState extends State<UploadFilesView> {
         debugPrint(imagesNames.toString());
       }
       setState(() {});
+
     }
   }
 
-  void  delete (String image,String imageName,)
-  {
+  void delete(String image, String imageName,) {
     setState(() {
       images.remove(image);
       imagesNames.remove(imageName);
@@ -89,50 +95,75 @@ class _UploadFilesViewState extends State<UploadFilesView> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          images.isEmpty ?
-          Column(
-            mainAxisSize: MainAxisSize.min,
+      body: BlocConsumer<UploadFileCubit, UploadFileState>(
+        listener: (context, state) {
+          if(state is UploadFileSuccessState){
+            BlocProvider.of<UploadFileCubit>(context).uploadTaskData(link: state.fileUrl, subTaskId: widget.subTaskId, taskId: widget.taskId);
+          }
+          if(state is UploadFileErrorState){
+            AppFunctions.showsToast(state.message, ColorManager.red, context);
+          }
+          if(state is UploadTaskDataErrorState){
+            // images.clear();
+            // imagesNames.clear();
+            AppFunctions.showsToast(state.message, ColorManager.red, context);
+          }
+          if(state is UploadTaskDataSuccessState){
+            // images.clear();
+            // imagesNames.clear();
+            AppFunctions.showsToast(state.baseModel.message??'', ColorManager.successGreen, context);
+          }
+        },
+        builder: (context, state) {
+          return Column(
             children: [
-              SizedBox(height: 150.h,),
-              Text(
-                'No Files Selected .',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: ColorManager.orange),
+              images.isEmpty ?
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 150.h,),
+                  Text(
+                    'No Files Selected .',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: ColorManager.orange),
+                  ),
+                ],
+              )
+                  : Expanded(
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: images.length, // result?.files.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return
+                      UploadFilesContainer(
+                        name: imagesNames[index] ?? '',
+                        description: '',
+                        onDelete: () {
+                          delete(images[index] ?? '', imagesNames[index] ?? '');
+                        },
+                      );
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(height: 10.h,);
+                  },
+                ),
+              ),
+
+              if(images.isEmpty)
+                const Spacer(),
+
+              Padding(
+                padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
+                child: state is UploadTaskDataLoadingState || state is UploadFileLoadingState ? Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),) :  CustomElevated(text: "pick files", press: () {
+                  pickFile();
+                }, btnColor: ColorManager.mainColor),
               ),
             ],
-          )
-              : Expanded(
-            child: ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              itemCount:   images.length, // result?.files.length ?? 0,
-              itemBuilder: (context, index) {
-                return
-                  UploadFilesContainer(
-                    name :  imagesNames[index] ?? '',
-                    description: '',
-                    onDelete: ()
-                    {
-                      delete(images[index]??'',imagesNames[index]??'');
-                    },
-                  );
-              },
-              separatorBuilder: (context, index) {
-                return SizedBox(height: 10.h,);
-              },
-            ),
-          ),
-
-          if(images.isEmpty)
-            const Spacer(),
-
-          Padding(
-            padding:  EdgeInsets.only(bottom: 20.h ,left: 20.w, right: 20.w ),
-            child: CustomElevated(text: "pick files", press: () {
-              pickFile();
-            }, btnColor: ColorManager.mainColor),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

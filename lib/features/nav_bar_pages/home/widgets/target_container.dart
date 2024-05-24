@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TargetContainer extends StatelessWidget {
-  const TargetContainer({super.key});
+  final String todayTarget;
+  final String weeklyTarget;
+  const TargetContainer({super.key, required this.todayTarget, required this.weeklyTarget});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +28,10 @@ class TargetContainer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const _CustomTargetColumn(
+          _CustomTargetColumn(
             image: AssetsStrings.todayTargetImage,
             title: "Today Target",
-            price: "3000\$",
+            price: "$todayTarget\$",
           ),
           Container(
             width: 2.w,
@@ -39,10 +41,10 @@ class TargetContainer extends StatelessWidget {
               vertical: 5.h,
             ),
           ),
-          const _CustomTargetColumn(
+          _CustomTargetColumn(
             image: AssetsStrings.weeklyTargetImage,
             title: "Weekly Target",
-            price: "7000\$",
+            price: "$weeklyTarget\$",
           ),
         ],
       ),

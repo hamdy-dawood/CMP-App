@@ -8,7 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class PercentContainer extends StatelessWidget {
-  const PercentContainer({super.key});
+  final double percent;
+  const PercentContainer({super.key, required this.percent});
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +58,9 @@ class PercentContainer extends StatelessWidget {
               radius: 50.r,
               lineWidth: 8.w,
               animation: true,
-              percent: 0.95,
+              percent: percent/100,
               center: Text(
-                "95%",
+                "$percent%",
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 20.sp,

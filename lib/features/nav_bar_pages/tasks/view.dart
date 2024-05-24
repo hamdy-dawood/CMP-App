@@ -73,7 +73,7 @@ class _TasksBodyState extends State<_TasksBody> {
           children: [
             EasyInfiniteDateTimeLine(
               activeColor: ColorManager.mainColor,
-              selectionMode: const SelectionMode.alwaysFirst(),
+              // selectionMode: const SelectionMode.alwaysFirst(),
               controller: _controller,
               firstDate: DateTime(2024),
               focusDate: _focusDate,

@@ -18,7 +18,7 @@ class TaskItemTasks extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         MagicRouter.navigateTo(
-          page: TaskDetails(task: task,),
+          page: TaskDetails(taskId: task.taskId??'0',),
         );
       },
       child: Padding(
@@ -89,8 +89,8 @@ class TaskItemTasks extends StatelessWidget {
                       animation: true,
                       lineHeight: 15,
                       animationDuration: 1000,
-                      percent: 1,
-                      center: const FittedBox(child: Text("100%")),
+                      percent: (task.subTaskStatistics?.completionPercentage??0)/100,
+                      center: FittedBox(child: Text("${task.subTaskStatistics?.completionPercentage??0} %",style: TextStyle(color: (task.subTaskStatistics?.completionPercentage??0) > 50 ? ColorManager.white : ColorManager.black),)),
                       barRadius: Radius.circular(20.r),
                       progressColor: ColorManager.mainColor,
                       backgroundColor: ColorManager.white,

@@ -34,10 +34,12 @@ class PieChartWidget extends StatelessWidget {
         ),
       ),
       chartValuesOptions: ChartValuesOptions(
+
           showChartValuesInPercentage: true,
           chartValueBackgroundColor: Colors.transparent,
           chartValueStyle: TextStyle(
             color: ColorManager.white,
+            fontSize: 10.sp
           )),
     );
   }

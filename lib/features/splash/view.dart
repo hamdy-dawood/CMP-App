@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView> {
       const Duration(seconds: 5),
       () {
         MagicRouter.navigateTo(
-          page: CacheHelper.getEmail().isEmpty
+          page: CacheHelper.getId().isEmpty
               ? const StartView()
               : const NavBarView(),
           withHistory: false,

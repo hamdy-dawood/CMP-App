@@ -1,3 +1,4 @@
+import 'package:cmp_app/core/functions/app_functions.dart';
 import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
@@ -66,27 +67,34 @@ class _CovenantsViewState extends State<CovenantsView> {
           ],
         ),
       ),
-      body: BlocBuilder<CovenantsCubit, CovenantsState>(
+      body: BlocConsumer<CovenantsCubit, CovenantsState>(
+        listener: (context, state) {
+          if(state is CheckUnCheckConvenantsErrorState){
+            AppFunctions.showsToast(state.message, ColorManager.red, context);
+          }
+        },
         builder: (context, state) {
-          if(state is CovenantsSuccessState) {
-            return ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: List.generate(
-                state.covenantsModel.message?.length??0,
-                    (index) => CovenantsItem(
-                      image: state.covenantsModel.message?[index].image??'',
-                      title: state.covenantsModel.message?[index].title??'',
-                      subTitle: state.covenantsModel.message?[index].discription??'',
-                      address: state.covenantsModel.message?[index].location??'',
-                    ),
-              ),
-            );
+          if(state is CovenantsLoadingState) {
+            return Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),);
           }
           if(state is CovenantsErrorState){
             return DefaultErrorWidget(onTap: () => BlocProvider.of<CovenantsCubit>(context).getCovenants(), errorMessage: state.message);
           }else{
-            return Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),);
+            return ListView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: List.generate(
+                BlocProvider.of<CovenantsCubit>(context).covenantsModel?.message?.length??0,
+                    (index) => CovenantsItem(
+                  image: BlocProvider.of<CovenantsCubit>(context).covenantsModel?.message?[index].image??'',
+                  title: BlocProvider.of<CovenantsCubit>(context).covenantsModel?.message?[index].title??'',
+                  subTitle: BlocProvider.of<CovenantsCubit>(context).covenantsModel?.message?[index].discription??'',
+                  address: BlocProvider.of<CovenantsCubit>(context).covenantsModel?.message?[index].location??'',
+                  isCheck: BlocProvider.of<CovenantsCubit>(context).covenantsModel?.message?[index].delivered == '1' ? true : false,
+                  covenantId: BlocProvider.of<CovenantsCubit>(context).covenantsModel?.message?[index].covenantId??'',
+                ),
+              ),
+            );
           }
         },
       ),

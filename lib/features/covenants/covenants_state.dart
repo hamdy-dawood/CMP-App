@@ -32,3 +32,26 @@ class CovenantsErrorState extends CovenantsState {
   @override
   List<Object> get props => [message];
 }
+
+class CheckUnCheckConvenantsLoadingState extends CovenantsState {
+  @override
+  List<Object> get props => [];
+}
+
+class CheckUnCheckConvenantsSuccessState extends CovenantsState {
+  final BaseModel finishSubTaskModel;
+
+  const CheckUnCheckConvenantsSuccessState(this.finishSubTaskModel);
+
+  @override
+  List<Object> get props => [finishSubTaskModel];
+}
+
+class CheckUnCheckConvenantsErrorState extends CovenantsState {
+  final String message;
+
+  const CheckUnCheckConvenantsErrorState(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

@@ -11,6 +11,10 @@ class TaskSentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: ColorManager.white,
+      ),
       backgroundColor: ColorManager.white,
       body: SizedBox(
         height: 1.sh,
@@ -32,26 +36,26 @@ class TaskSentView extends StatelessWidget {
                 fontSize: 32.sp,
                 fontWeight: FontWeight.w700,
               ),
-              SizedBox(height: 20.h),
-              CustomText(
-                text:
-                    "Mail sent to Nadanour221@gamil.com. please verify your mail. once you verified . the account will be linked",
-                color: ColorManager.black5,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w400,
-                maxLines: 20,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40.w),
-                child: CustomElevated(
-                  text: "Ok. Will check mail",
-                  press: () {},
-                  btnColor: ColorManager.mainColor,
-                  borderRadius: 18.r,
-                ),
-              ),
+              // SizedBox(height: 20.h),
+              // CustomText(
+              //   text:
+              //       "Mail sent to Nadanour221@gamil.com. please verify your mail. once you verified . the account will be linked",
+              //   color: ColorManager.black5,
+              //   fontSize: 20.sp,
+              //   fontWeight: FontWeight.w400,
+              //   maxLines: 20,
+              //   textAlign: TextAlign.center,
+              // ),
+              // SizedBox(height: 20.h),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 40.w),
+              //   child: CustomElevated(
+              //     text: "Ok. Will check mail",
+              //     press: () {},
+              //     btnColor: ColorManager.mainColor,
+              //     borderRadius: 18.r,
+              //   ),
+              // ),
             ],
           ),
         ),

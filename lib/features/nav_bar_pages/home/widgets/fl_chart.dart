@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FlCarts extends StatelessWidget {
-  const FlCarts({super.key});
+  final Map<String, dynamic> attendanceStatistics;
+  const FlCarts({super.key, required this.attendanceStatistics});
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +21,15 @@ class FlCarts extends StatelessWidget {
         child: LineChart(
           LineChartData(
             minY: 0,
-            maxY: 15,
+            maxY: 30,
             lineBarsData: [
               LineChartBarData(
-                spots: [
-                  FlSpot(0, 1),
-                  FlSpot(1, 4),
-                  FlSpot(2, 0),
-                  FlSpot(3, 10),
-                  FlSpot(4, 8),
-                  FlSpot(5, 14),
-                ],
-                colors: [ColorManager.mainColor],
+                spots: List.generate(attendanceStatistics.keys.toList().length, (index) {
+                  String month = attendanceStatistics.keys.toList()[index];
+                  double attendancePercentage = attendanceStatistics[month]["present_days"]?.toDouble() ?? 0.0;
+                  return FlSpot(index.toDouble(), attendancePercentage);
+                }),
+                colors: [Colors.blue],
                 barWidth: 2,
               ),
             ],
@@ -44,19 +42,9 @@ class FlCarts extends StatelessWidget {
                   fontSize: 14,
                 ),
                 getTitles: (value) {
-                  switch (value.toInt()) {
-                    case 0:
-                      return 'Jan';
-                    case 1:
-                      return 'Feb';
-                    case 2:
-                      return 'Mar';
-                    case 3:
-                      return 'Apr';
-                    case 4:
-                      return 'May';
-                    case 5:
-                      return 'Jun';
+                  int index = value.toInt();
+                  if (index >= 0 && index < attendanceStatistics.keys.toList().length) {
+                    return attendanceStatistics.keys.toList()[index].substring(0, 3); // Shorten to first 3 letters
                   }
                   return '';
                 },
@@ -64,8 +52,13 @@ class FlCarts extends StatelessWidget {
               ),
               leftTitles: SideTitles(
                 showTitles: true,
-                reservedSize: 8,
+                reservedSize: 30,
                 interval: 5,
+                getTextStyles: (value) => const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
               ),
             ),
           ),

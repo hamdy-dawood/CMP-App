@@ -15,6 +15,8 @@ class _DefaultErrorWidgetState extends State<DefaultErrorWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(Icons.refresh,color: ColorManager.mainColor,size: 40.sp,),
         SizedBox(height: 20.h,),

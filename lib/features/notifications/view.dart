@@ -72,7 +72,7 @@ class _NotificationsViewState extends State<NotificationsView> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 15.h,bottom: 15.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -82,15 +82,15 @@ class _NotificationsViewState extends State<NotificationsView> {
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w700,
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: CustomText(
-                      text: "Delete All",
-                      color: ColorManager.grey6,
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {},
+                  //   child: CustomText(
+                  //     text: "Delete All",
+                  //     color: ColorManager.grey6,
+                  //     fontSize: 11.sp,
+                  //     fontWeight: FontWeight.w700,
+                  //   ),
+                  // ),
                 ],
               ),
             ),

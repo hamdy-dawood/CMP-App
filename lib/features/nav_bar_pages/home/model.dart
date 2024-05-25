@@ -105,7 +105,7 @@ class TaskStatistics {
   int? yearlyTarget;
   int? achievedTodayTarget;
   int? achievedDailyTarget;
-  String? achievedRequestedDayTarget;
+  var achievedRequestedDayTarget;
 
   TaskStatistics(
       {this.totalTasks,

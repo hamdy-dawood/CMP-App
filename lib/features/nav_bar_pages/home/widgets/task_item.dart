@@ -44,17 +44,7 @@ class TaskItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              BlocProvider.of<TaskDetailsCubit>(context).selectedSubTask == subTaskId ? Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),) : InkWell(
-                onTap: () {
-                  BlocProvider.of<TaskDetailsCubit>(context).selectedSubTask = subTaskId;
-                  if(isFinish == '0'){
-                    BlocProvider.of<TaskDetailsCubit>(context).finishSubTask(taskId: taskId, subTaskId: subTaskId);
-                  }else{
-                    BlocProvider.of<TaskDetailsCubit>(context).unFinishSubTask(taskId: taskId, subTaskId: subTaskId);
-                  }
-                },
-                child: Icon(isFinish == '1' ? Icons.check_box_outlined : Icons.check_box_outline_blank,size: 30.sp,color: ColorManager.mainColor,),
-              ),
+              BlocProvider.of<TaskDetailsCubit>(context).selectedSubTask == subTaskId ? Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),) : Icon(isFinish == '1' ? Icons.check_box_outlined : Icons.check_box_outline_blank,size: 30.sp,color: ColorManager.mainColor,),
               SizedBox(width: 20.w),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

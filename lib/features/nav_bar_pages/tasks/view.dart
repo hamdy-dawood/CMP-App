@@ -2,6 +2,7 @@ import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/app_bar.dart';
 import 'package:cmp_app/core/widgets/default_empty_widget.dart';
 import 'package:cmp_app/core/widgets/error_widget.dart';
+import 'package:cmp_app/features/nav_bar_pages/tasks/model.dart';
 import 'package:cmp_app/features/nav_bar_pages/tasks/tasks_cubit.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,7 @@ class _TasksBody extends StatefulWidget {
 class _TasksBodyState extends State<_TasksBody> {
   final EasyInfiniteDateTimelineController _controller =
   EasyInfiniteDateTimelineController();
+  List<Task>? allTasks;
 
   DateTime? _focusDate = DateTime.now();
 
@@ -124,6 +126,14 @@ class _TasksBodyState extends State<_TasksBody> {
             BlocBuilder<TasksCubit, TasksState>(
               builder: (context, state) {
                 if(state is TasksSuccessState) {
+                  if(_focusDate.toString().split(" ")[0] != DateTime.now().toString().split(" ")[0]) {
+                    allTasks = (state.tasksModel.message ?? [])
+                        .where((element) =>
+                            element.day == _focusDate.toString().split(" ")[0])
+                        .toList();
+                  }else{
+                    allTasks = state.tasksModel.message;
+                  }
                   return Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -131,8 +141,8 @@ class _TasksBodyState extends State<_TasksBody> {
                         controller: widget.tabController,
                         children: [
                           ListView(
-                            children: List.generate(state.tasksModel.message?.length??0, (index) => TaskItemTasks(
-                              task: (state.tasksModel.message??[])[index],
+                            children: List.generate(allTasks?.length??0, (index) => TaskItemTasks(
+                              task: (allTasks??[])[index],
                             )),
                           ),
                           if(state.todayTasks.isEmpty)

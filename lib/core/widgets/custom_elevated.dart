@@ -19,7 +19,7 @@ class CustomElevated extends StatelessWidget {
     this.hSize = 55,
     this.wSize = 1,
     this.fontSize = 22,
-    this.borderRadius = 8,
+    this.borderRadius = 15,
     this.fontWeight = FontWeight.w500,
   });
 

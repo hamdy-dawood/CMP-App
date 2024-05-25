@@ -3,6 +3,7 @@ import 'package:cmp_app/core/helpers/navigator.dart';
 import 'package:cmp_app/core/theming/colors.dart';
 import 'package:cmp_app/core/widgets/custom_elevated.dart';
 import 'package:cmp_app/core/widgets/custom_text.dart';
+import 'package:cmp_app/features/task_details/task_details_cubit.dart';
 import 'package:cmp_app/features/upload_files/upload_file_cubit.dart';
 import 'package:cmp_app/features/upload_files/widgets/upload_files_container.dart';
 import 'package:flutter/material.dart';
@@ -154,6 +155,14 @@ class _UploadFilesViewState extends State<UploadFilesView> {
 
               if(images.isEmpty)
                 const Spacer(),
+
+
+              Padding(
+                padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
+                child: BlocBuilder<TaskDetailsCubit, TaskDetailsState>(builder: (context, state) => state is FinishUnFinishSubTaskLoadingState || state is TaskDetailsLoadingState ? Center(child: CircularProgressIndicator(color: ColorManager.mainColor,),) :  CustomElevated(text: "End Task", press: () {
+                  if(images.isNotEmpty) BlocProvider.of<TaskDetailsCubit>(context).finishSubTask(taskId: widget.taskId, subTaskId: widget.subTaskId);
+                }, btnColor: images.isNotEmpty? ColorManager.mainColor : ColorManager.grey),),
+              ),
 
               Padding(
                 padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),

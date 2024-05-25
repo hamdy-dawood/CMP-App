@@ -45,6 +45,7 @@ class _TaskDetailsState extends State<TaskDetails> {
               AppFunctions.showsToast(state.message, ColorManager.red, context);
             }
             if(state is FinishUnFinishSubTaskSuccessState){
+              Navigator.pop(context);
               // AppFunctions.showsToast(state.message, ColorManager.successGreen, context);
               // BlocProvider.of<TaskDetailsCubit>(context).getTaskDetails(widget.taskId??'');
             }

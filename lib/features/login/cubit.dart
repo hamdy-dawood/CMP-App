@@ -26,7 +26,7 @@ class LoginCubit extends Cubit<LoginState> {
       bool? isEmailVerified = FirebaseAuth.instance.currentUser?.emailVerified;
       UserCredential user = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
 
-      // if (isEmailVerified == true) {
+      if (isEmailVerified == true) {
         Response response = await DioManager().post(
             "https://camp-coding.site/as_graduation/user/home/login.php",
             data: {
@@ -42,9 +42,9 @@ class LoginCubit extends Cubit<LoginState> {
         } else {
           emit(LoginFailureState(stateMsg: "Something went wrong, please try again"));
         }
-      // } else {
-      //   emit(LoginFailureState(stateMsg: 'Please verify your acc.'));
-      // }
+      } else {
+        emit(LoginFailureState(stateMsg: 'Please verify your acc.'));
+      }
     } on FirebaseAuthException catch (ex) {
       emit(LoginFailureState(stateMsg: ex.code.toString()));
     }

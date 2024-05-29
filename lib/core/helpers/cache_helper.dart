@@ -45,8 +45,7 @@ class CacheHelper {
 
   static Future<void> saveId(String id) async => _prefs?.setString(_idKey, id);
 
-  static String getId() => _prefs?.getString(_idKey) ?? "1";
-
+  static String getId() => _prefs?.getString(_idKey) ?? "";
 
   static Future<bool> saveEmail(String email) async {
     try {

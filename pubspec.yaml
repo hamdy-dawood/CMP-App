@@ -56,6 +56,7 @@ dependencies:
   easy_date_timeline:
   file_picker: ^8.0.3
   flutter_styled_toast: ^2.2.1
+  flutter_windowmanager: ^0.2.0
 
 dev_dependencies:
   flutter_test:
